@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Vanipedia main page: calm, content first. Same sandstone, maroon and gold
+   as the entry page. Nothing moves except a short fade-in on first view.
+   ========================================================================== */
+
+.portal { background: var(--sand-1); }
+.portal .bar--portal .bar__search { display: flex; }
+.portal .bar--portal .bar__btn--search { display: none; }
+@media (min-width: 760px) { .portal .bar--portal .bar__search { flex: 0 1 19rem; } }
+@media (min-width: 1180px) { .portal .bar--portal .bar__search { flex: 0 1 18rem; margin-left: auto; } }
+@media (min-width: 1500px) { .portal .bar--portal .bar__search { flex-basis: 24rem; } }
+
+.wrap { width: 100%; max-width: 46rem; margin-inline: auto; padding-inline: var(--gutter); }
+.wrap--wide { max-width: 64rem; }
+
+/* ---------------------------------------------------------------- title block */
+.hello { background: var(--sand-2); border-bottom: 2px solid var(--gold); padding: clamp(2.6rem, 8vw, 5rem) 0 clamp(2.4rem, 6vw, 4rem); text-align: center; }
+.hello h1 { font-size: clamp(3.2rem, 9vw, 5.6rem); color: var(--ink); }
+.hello__slogan { margin: 0.7rem 0 0; font-size: 1.25rem; font-weight: 600; color: var(--ink-soft); }
+.hello__welcome { margin: 1.6rem auto 0; max-width: 38rem; text-align: left; color: var(--ink); }
+
+/* ---------------------------------------------------------------------- rooms */
+.room-sec { padding: clamp(2.6rem, 6vw, 4.4rem) 0 0.4rem; }
+.room-sec + .room-sec { border-top: 1px solid var(--gold-soft); margin-top: clamp(2.2rem, 5vw, 3.6rem); }
+.room-sec h2 { font-size: clamp(2.1rem, 5vw, 2.8rem); color: var(--ink); }
+.room-sec h2::after { content: ""; display: block; width: 3.2rem; height: 2px; margin-top: 0.8rem; background: var(--gold); }
+.room-sec h3 { margin: 2.4rem 0 0; font-size: 1.1875rem; font-weight: 700; color: var(--ink); letter-spacing: 0; }
+
+.list { list-style: none; margin: 1.3rem 0 0; padding: 0; border-top: 1px solid var(--gold-soft); }
+.list > li { border-bottom: 1px solid var(--gold-soft); }
+.list > li > a, .list .item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.6rem; padding: 0.7rem 0.2rem; color: var(--ink); text-decoration: none; }
+.list > li > a:hover .item__title { text-decoration: underline; text-decoration-thickness: 2px; }
+.list > li > a[aria-disabled="true"] { cursor: default; }
+.list > li > a[aria-disabled="true"]:hover .item__title { text-decoration: none; }
+.item__main { display: block; min-width: 0; }
+.item__title { display: block; font-weight: 600; font-size: 1.1875rem; line-height: 1.35; color: var(--link); }
+.item__sub { display: block; margin-top: 0.15rem; color: var(--ink-soft); font-size: 1.0625rem; line-height: 1.45; }
+.item__tag { flex: none; font-size: 1rem; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+.item__arrow { flex: none; width: 1.3rem; height: 1.3rem; color: var(--gold); }
+@media (min-width: 900px) { .item__sub { font-size: 1.125rem; } }
+
+.grid2 { display: grid; grid-template-columns: 1fr; gap: 0; }
+@media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; column-gap: 2rem; } }
+
+.note { margin: 0.3rem 0 0.9rem; padding-inline: 0.2rem; font-size: 1.0625rem; line-height: 1.5; color: var(--ink-soft); }
+@media (min-width: 900px) { .note { font-size: 1.125rem; } }
+.note a { color: var(--link); }
+.note--first { margin: 0.7rem 0 0; padding-inline: 0; }
+
+/* ------------------------------------------------------------ the person block */
+.person { display: grid; gap: 1.8rem; align-items: center; padding-top: 0.6rem; }
+@media (min-width: 760px) { .person { grid-template-columns: 17rem 1fr; gap: 2.6rem; } }
+.portrait { margin: 0; position: relative; width: min(100%, 20rem); justify-self: center; }
+.portrait::after { content: ""; position: absolute; inset: -8px; border: 1px solid var(--gold-soft); border-radius: 50% 50% 0 0 / 34% 34% 0 0; pointer-events: none; }
+.portrait__frame { overflow: hidden; border: 2px solid var(--gold); border-radius: 50% 50% 0 0 / 34% 34% 0 0; background: #111; aspect-ratio: 1 / 1.08; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 54% 38%; }
+.person h2 { margin: 0; }
+.person__name { margin: 0.9rem 0 0; font-size: 1.1875rem; font-weight: 600; }
+.person__title { margin: 0.5rem 0 0; font-size: 1.1875rem; line-height: 1.45; color: var(--ink); }
+.person__links { margin-top: 1.1rem; }
+
+/* ------------------------------------------------------------------- listening */
+.audio { margin-top: 1rem; }
+.audio audio { width: 100%; height: 3.2rem; }
+.audio__cap { margin: 0.5rem 0 0; font-size: 1.0625rem; color: var(--ink-soft); }
+@media (min-width: 900px) { .audio__cap { font-size: 1.125rem; } }
+
+/* ------------------------------------------------------------------- timeline */
+.timeline { list-style: none; margin: 1.4rem 0 0; padding: 0; border-top: 1px solid var(--gold-soft); }
+.timeline li { display: grid; grid-template-columns: 6.6rem 1fr; gap: 1rem; padding: 0.75rem 0.2rem; border-bottom: 1px solid var(--gold-soft); }
+.timeline time { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+@media (max-width: 400px) { .timeline li { grid-template-columns: 5.4rem 1fr; gap: 0.7rem; } }
+
+/* -------------------------------------------------------------------- footer */
+.foot { margin-top: clamp(3rem, 7vw, 5rem); background: var(--bar); color: var(--on-dark); padding: 2.2rem 0 2.6rem; --focus: var(--gold-lt); }
+.foot a { color: var(--gold-lt); }
+.foot .credits { color: var(--on-dark-soft); font-size: 1.0625rem; }
+@media (min-width: 900px) { .foot .credits { font-size: 1.125rem; } }
+.foot .credits summary { color: var(--on-dark); }
+.foot__links { margin: 0 0 1rem; font-weight: 600; font-size: 1.0625rem; }
+.foot__links a { display: inline-flex; align-items: center; min-height: 44px; }
+.foot__tag { margin: 1.4rem 0 0; font-size: 1rem; color: var(--on-dark-soft); }
+
+/* ---------------------------------------------------------- quiet first-view fade */
+html.reveal-on [data-reveal] { opacity: 0; transform: translate3d(0, 10px, 0); transition: opacity 420ms cubic-bezier(0.23, 1, 0.32, 1), transform 420ms cubic-bezier(0.23, 1, 0.32, 1); }
+html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-on [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+

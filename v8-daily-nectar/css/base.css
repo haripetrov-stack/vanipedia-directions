@@ -1,0 +1,217 @@
+/* ============================================================================
+   v8 Daily Nectar: shared base for both pages.
+   Loads after engine/scrollcraft.css. The engine is not edited; this file
+   re-themes its six colour roles and two fonts, and holds everything the two
+   pages share: type, tones, buttons, forms, focus.
+   ========================================================================== */
+
+/* --- fonts: self-hosted, subsetted, full IAST ---------------------------- */
+@font-face {
+  font-family: "Archivo"; font-style: normal; font-weight: 600 900; font-stretch: 100% 125%;
+  font-display: swap;
+  src: url("../assets/fonts/archivo-v8-latin.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B7, U+00C9, U+00D1, U+00D7, U+00E9, U+00F1, U+00FC, U+2018-201D, U+2022, U+2026, U+2212;
+}
+@font-face {
+  font-family: "Archivo"; font-style: normal; font-weight: 600 900; font-stretch: 100% 125%;
+  font-display: swap;
+  src: url("../assets/fonts/archivo-v8-iast.woff2") format("woff2");
+  unicode-range: U+0100-017F, U+1E00-1E9F;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-v8-latin.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B7, U+00C9, U+00D1, U+00D7, U+00E9, U+00F1, U+00FC, U+2018-201D, U+2022, U+2026, U+2212;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-v8-iast.woff2") format("woff2");
+  unicode-range: U+0100-017F, U+1E00-1E9F;
+}
+
+/* --- tokens -------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --paper: #F6EFDF;  --paper-2: #EBE1CB;  --cream: #FFF8E8;
+  --ink: #16133F;    --ink-soft: #4A4672;
+  --saffron: #F5A21A;  --kesar: #AE3F0A;  --tulasi: #1B6636;  --indigo: #2A2583;  --night: #120F33;
+
+  /* the six roles the engine reads */
+  --sc-canvas: var(--paper);  --sc-surface: var(--paper-2);
+  --sc-ink: var(--ink);       --sc-ink-soft: var(--ink-soft);
+  --sc-accent: var(--saffron); --sc-accent-ink: var(--ink);
+  --sc-font-display: "Archivo", "Inter", system-ui, sans-serif;
+  --sc-font-text: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* body text is 17px on a phone and 18px from 1280px up */
+  --sc-t-base: clamp(1.0625rem, 1.03rem + 0.12vw, 1.125rem);
+  --sc-leading-body: 1.55;
+  --sc-measure: 66ch;
+  --sc-track-normal: 0;
+
+  --gut: clamp(1.25rem, 0.9rem + 4.2vw, 4.5rem);
+  --strip-h: 60px;
+  --max: 76rem;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- tones: one block colour with its own ink, buttons and focus ring ---- */
+[data-tone] { background: var(--bg); color: var(--fg); }
+[data-tone="saffron"] { --bg: var(--saffron); --fg: var(--ink);   --soft: #2C2757; --rule: rgb(22 19 63 / 0.35);   --btn-bg: var(--ink);     --btn-fg: var(--paper); --focus: var(--ink); }
+[data-tone="indigo"]  { --bg: var(--indigo);  --fg: var(--cream); --soft: #D9D5FA; --rule: rgb(255 248 232 / 0.4);  --btn-bg: var(--saffron); --btn-fg: var(--ink);   --focus: var(--saffron); }
+[data-tone="kesar"]   { --bg: var(--kesar);   --fg: var(--cream); --soft: #FFE6D2; --rule: rgb(255 248 232 / 0.5);  --btn-bg: var(--cream);   --btn-fg: var(--ink);   --focus: var(--cream); }
+[data-tone="tulasi"]  { --bg: var(--tulasi);  --fg: var(--cream); --soft: #DDEFE1; --rule: rgb(255 248 232 / 0.45); --btn-bg: var(--cream);   --btn-fg: var(--ink);   --focus: var(--cream); }
+[data-tone="paper"]   { --bg: var(--paper);   --fg: var(--ink);   --soft: var(--ink-soft); --rule: rgb(22 19 63 / 0.3); --btn-bg: var(--ink);   --btn-fg: var(--paper); --focus: var(--ink); }
+[data-tone="paper2"]  { --bg: var(--paper-2); --fg: var(--ink); --soft: var(--ink-soft); --rule: rgb(22 19 63 / 0.3); --btn-bg: var(--ink); --btn-fg: var(--paper); --focus: var(--ink); }
+[data-tone="night"]   { --bg: var(--night);   --fg: var(--paper); --soft: #CFCBEC; --rule: rgb(246 239 223 / 0.4); --btn-bg: var(--saffron); --btn-fg: var(--ink);   --focus: var(--saffron); }
+
+/* --- page ground and text ------------------------------------------------ */
+html { scroll-padding-top: calc(var(--strip-h) + 12px); }
+body { background: var(--paper); color: var(--ink); font-family: var(--sc-font-text); font-size: var(--sc-t-base); line-height: var(--sc-leading-body); }
+img { height: auto; }
+a { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+@media (hover: hover) { a:hover { text-decoration-thickness: 2px; } }
+:focus-visible { outline: 3px solid var(--focus, var(--ink)); outline-offset: 3px; border-radius: 0; }
+::selection { background: var(--ink); color: var(--paper); }
+
+.vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip {
+  position: fixed; left: 12px; top: 12px; z-index: 100;
+  padding: 12px 16px; background: var(--ink); color: var(--paper);
+  font-weight: 700; text-decoration: none; transform: translateY(-200%);
+}
+.skip:focus { transform: none; outline-color: var(--saffron); }
+
+/* display type: Archivo, wide and heavy, headings only */
+.d {
+  font-family: var(--sc-font-display);
+  font-weight: 800; font-stretch: 112%;
+  line-height: 0.98; letter-spacing: -0.015em;
+  text-wrap: balance; margin: 0;
+  overflow-wrap: break-word;
+}
+.label {
+  font: 700 0.875rem/1.2 var(--sc-font-text);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin: 0;
+}
+.soft { color: var(--soft, var(--ink-soft)); }
+
+/* --- buttons ------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  min-height: 48px; padding: 0.7em 1.15em;
+  background: var(--btn-bg, var(--ink)); color: var(--btn-fg, var(--paper));
+  border: 2px solid var(--btn-bg, var(--ink));
+  font: 700 1rem/1.15 var(--sc-font-text); text-decoration: none; cursor: pointer;
+  transition: background-color 140ms var(--ease), color 140ms var(--ease), transform 100ms var(--ease);
+}
+.btn svg { width: 1.1em; height: 1.1em; flex: none; }
+.btn:active { transform: translateY(1px); }
+@media (hover: hover) { .btn:hover { background: transparent; color: var(--btn-bg, var(--ink)); text-decoration: none; } }
+.btn--ghost { background: transparent; color: var(--fg, var(--ink)); border-color: var(--fg, var(--ink)); }
+@media (hover: hover) { .btn--ghost:hover { background: var(--fg, var(--ink)); color: var(--bg, var(--paper)); } }
+.btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+/* --- tap-to-play: coloured by the tone it sits in ------------------------ */
+.player { margin-top: 20px; }
+.player__btn {
+  display: inline-flex; align-items: center; gap: 14px; min-height: 64px; padding: 0 26px 0 14px;
+  background: var(--btn-bg, var(--ink)); color: var(--btn-fg, var(--paper)); border: 2px solid var(--btn-bg, var(--ink));
+  font: 700 1.25rem/1 var(--sc-font-text); cursor: pointer;
+  transition: background-color 140ms var(--ease), color 140ms var(--ease), transform 100ms var(--ease);
+}
+.player__btn:active { transform: translateY(1px); }
+.player__icon { width: 36px; height: 36px; flex: none; display: grid; place-items: center; background: var(--bg, var(--saffron)); color: var(--fg, var(--ink)); }
+.player__icon svg { width: 18px; height: 18px; }
+.player__icon .i-pause { display: none; }
+.player.is-playing .i-play { display: none; }
+.player.is-playing .i-pause { display: block; }
+@media (hover: hover) { .player__btn:hover { background: transparent; color: var(--btn-bg, var(--ink)); } }
+.player__time { margin-left: 4px; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1rem; }
+.player__status { margin: 8px 0 0; font-size: 0.9375rem; min-height: 1.4em; }
+.player audio { display: block; width: 100%; max-width: 28rem; margin-top: 8px; }
+.js .player audio { display: none; }
+.player__btn[hidden] { display: none; }
+
+/* --- the four petals as tiles (both pages) ------------------------------- */
+.petals__list { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 12px; grid-template-columns: 1fr; }
+.tile {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+  min-height: 9.5rem; padding: 18px 18px 16px;
+  background: var(--bg); color: var(--fg); text-decoration: none;
+  border: 3px solid var(--bg);
+  transition: transform 100ms var(--ease);
+}
+.tile:focus-visible { outline-color: var(--ink); outline-offset: 4px; }
+.tile:active { transform: translateY(1px); }
+.tile__name, .tile__what { display: block; }
+.tile__name { font: 800 clamp(1.9rem, 8.4vw, 3rem)/1 var(--sc-font-display); font-stretch: 112%; letter-spacing: -0.015em; margin: 0; }
+.tile__what { margin: 6px 0 0; font-size: 1.0625rem; line-height: 1.35; max-width: 26rem; }
+.tile__host { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; }
+.tile__host svg { width: 22px; height: 22px; }
+@media (hover: hover) { .tile:hover { background: var(--paper); color: var(--bg); text-decoration: none; } }
+@media (min-width: 720px) {
+  .petals__list { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tile { min-height: 13rem; padding: 24px 24px 20px; }
+}
+
+/* --- language: names, never flags; a details panel that Escape closes ------- */
+.lang { position: relative; }
+.lang summary {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; cursor: pointer; list-style: none;
+  border: 2px solid var(--paper); color: var(--paper); font-weight: 700; font-size: 1rem;
+}
+.lang summary::-webkit-details-marker { display: none; }
+.lang summary::after { content: ""; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); margin-left: 2px; }
+.lang[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+.lang__v { font-weight: 500; opacity: 1; }
+.lang__k::after { content: ":"; }
+@media (max-width: 400px) { .lang__v { display: none; } .lang__k::after { content: none; } .top__brand { font-size: 1.375rem; } }
+@media (hover: hover) { .lang summary:hover { background: var(--paper); color: var(--night); } }
+.lang__panel {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: min(20rem, calc(100vw - 2 * var(--gut)));
+  padding: 18px; background: var(--paper); color: var(--ink); border: 2px solid var(--ink);
+}
+.lang__panel ul { list-style: none; margin: 8px 0 0; padding: 0; }
+.lang__panel li a { display: flex; align-items: center; min-height: 44px; font-weight: 600; }
+.lang__panel a[aria-current="true"] { font-weight: 800; }
+.lang__panel a[aria-current="true"]::after { content: "current"; margin-left: 10px; font-size: 0.875rem; font-weight: 500; color: var(--ink-soft); }
+.lang__all { margin: 8px 0 0; padding-top: 8px; border-top: 2px solid var(--rule); }
+.lang__all a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.lang__panel .label { color: var(--ink-soft); }
+.lang__panel a { color: var(--ink); }
+.lang--up .lang__panel { top: auto; bottom: calc(100% + 8px); left: 0; right: auto; }
+.foot .lang { margin-top: 6px; }
+
+/* --- search form: real GET form, field named s, full-text tab ------------ */
+.search { margin: 0; }
+.search__label { display: block; margin-bottom: 8px; }
+.search__row { display: flex; align-items: stretch; gap: 0; }
+.search__input {
+  flex: 1 1 auto; min-width: 0; height: 56px; padding: 0 16px;
+  font: 500 1.125rem/1 var(--sc-font-text);
+  background: var(--cream); color: var(--ink);
+  border: 2px solid var(--ink); border-right: 0; border-radius: 0;
+  -webkit-appearance: none; appearance: none;
+}
+.search__input::placeholder { color: var(--ink-soft); opacity: 1; }
+.search__input:focus-visible { outline-offset: -2px; outline: 3px solid var(--focus, var(--ink)); }
+.search__btn { min-height: 56px; flex: none; padding-inline: 1.2em; }
+.search__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+/* --- flow reveals: short and front-loaded; the engine class does the work - */
+[data-sc-in], [data-sc-stagger] > * { transition-duration: 260ms; }
+[data-sc-in] { opacity: 1; transform: none; transition: none; }          /* the parent only carries the observer */
+[data-sc-stagger] > * { transform: translate3d(0, 10px, 0); }
+[data-sc-stagger] > .sc-in { transform: none; }
+/* if the engine script is missing, show everything */
+.sc-fallback [data-sc-stagger] > * { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-sc-in], [data-sc-stagger] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; }
+}

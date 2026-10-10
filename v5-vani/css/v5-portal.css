@@ -1,0 +1,69 @@
+/* ============================================================================
+   v5 Vāṇī: the Vanipedia main page
+   Same look as the entry page, none of its motion. A strict typographic grid:
+   a heading column and a reading column, hairline rows, no cards, one portrait.
+   ============================================================================ */
+
+.top { padding: clamp(1.75rem, 5vw, 4rem) var(--gut) clamp(2rem, 4vw, 3rem); }
+.top__h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(4.5rem, 22vw, 12.5rem); line-height: 0.98; text-transform: none; margin-left: -0.03em; }
+.top__search { margin-top: clamp(0.75rem, 2vw, 1.5rem); max-width: 56rem; }
+.top__label { display: block; font-weight: 600; margin-bottom: 0.4rem; }
+.top__field { display: flex; }
+.top__field input { flex: 1 1 auto; min-width: 0; height: 56px; padding: 0 1rem; border: 3px solid var(--ink); border-right: 0; border-radius: 0; background: #fff; color: var(--ink); font-size: 1.125rem; }
+.top__field input::placeholder { color: #5b5851; opacity: 1; }
+.top__field button { height: 56px; padding: 0 1.5rem; border: 3px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--paper); font-size: 1.0625rem; font-weight: 600; cursor: pointer; }
+.top__field button:hover { background: var(--acc-l); border-color: var(--acc-l); }
+.top__field input:focus-visible, .top__field button:focus-visible { outline-offset: 2px; }
+.top__welcome { margin-top: 1.5rem; max-width: 36rem; text-wrap: pretty; }
+.top__ways { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0 2rem; }
+.top__ways a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+
+/* a section: heading column + reading column, ruled from the one above */
+.sec { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 2rem; row-gap: 1.25rem; padding: clamp(1.75rem, 4vw, 3rem) var(--gut) clamp(2rem, 4vw, 3.5rem);
+  border-top: 3px solid var(--ink); scroll-margin-top: 0.5rem; }
+.sec__h { font-family: var(--f-display); font-weight: 400; font-size: clamp(2.5rem, 4.4vw, 4.25rem); line-height: 1.14; text-transform: none; text-wrap: balance; }
+.sec__body { display: grid; gap: 1.25rem; align-content: start; max-width: 42rem; }
+.sec__body p { max-width: 36rem; }
+@media (min-width: 861px) {
+  .sec { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .sec__head { grid-column: 1 / span 4; }
+  .sec__body { grid-column: 5 / -1; }
+}
+
+.sub { font-size: 1.25rem; line-height: 1.3; font-weight: 700; margin-top: 0.5rem; }
+.sub--item { margin-top: 0; }
+.lead { font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); line-height: 1.3; font-weight: 600; text-wrap: balance; }
+.small { font-size: var(--t-small); }
+.quote { text-wrap: pretty; }
+
+.rows { display: block; }
+.rows li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.15rem 1.5rem; padding: 0.7rem 0; border-top: 1px solid var(--ink); }
+.rows li:last-child { border-bottom: 1px solid var(--ink); }
+.rows a { font-weight: 600; text-decoration-thickness: 0.07em; }
+.rows .meta { color: var(--soft-l); font-size: var(--t-small); }
+.rows--stack li { display: block; }
+.rows--stack p { margin-top: 0.25rem; color: var(--ink); text-wrap: pretty; }
+a[aria-disabled="true"] { color: var(--soft-l); text-decoration: none; cursor: default; }
+a:hover { color: var(--acc-l); }
+a[aria-disabled="true"]:hover { color: var(--soft-l); }
+
+.life div { display: grid; grid-template-columns: minmax(0, 11.5rem) minmax(0, 1fr); gap: 0.25rem 1.25rem; padding: 0.55rem 0; border-top: 1px solid var(--ink); align-items: baseline; }
+.life div:last-child { border-bottom: 1px solid var(--ink); }
+.life dt { font-family: var(--f-display); font-size: 1.5rem; line-height: 1.15; color: var(--acc-l); letter-spacing: 0.01em; }
+.life dd { font-size: var(--t-body); }
+@media (max-width: 520px) { .life div { grid-template-columns: 1fr; } }
+
+.portrait { margin-top: 0.5rem; max-width: 14rem; }
+.portrait img { width: 100%; height: auto; }
+.portrait figcaption { margin-top: 0.5rem; font-size: var(--t-small); line-height: 1.45; color: var(--soft-l); }
+@media (max-width: 860px) { .portrait { max-width: 11rem; } }
+
+.audio audio { width: 100%; max-width: 30rem; height: 44px; margin-top: 0.25rem; }
+.audio figcaption { margin-top: 0.4rem; font-size: var(--t-small); color: var(--soft-l); }
+.ai { text-wrap: pretty; }
+.ai strong { color: var(--acc-l); }
+
+/* small reveals: one fade and a short rise, once, when the reader gets there. Static for reduced motion and without JS. */
+.v5-reveal [data-v5-in] { opacity: 0; transform: translate3d(0, 12px, 0); transition: opacity 520ms cubic-bezier(0.23, 1, 0.32, 1), transform 520ms cubic-bezier(0.23, 1, 0.32, 1); }
+.v5-reveal [data-v5-in].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .v5-reveal [data-v5-in] { opacity: 1; transform: none; transition: none; } }

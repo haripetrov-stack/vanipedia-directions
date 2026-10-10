@@ -1,0 +1,132 @@
+/* ============================================================================
+   portal.css: the Vanipedia main page. The same journal, as a front page:
+   search first, columns with printed rules, nothing that moves except a small
+   fade as a section arrives. Everything is in the document flow and stable.
+   ========================================================================== */
+
+.pmast { border-top: 8px solid var(--ink); }
+.pmast__dateline {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1.5rem;
+  padding-block: 0.4rem; border-bottom: 1px solid var(--hair);
+}
+.pmast__dateline a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--ink-2); }
+.pmast__dateline a:hover { color: var(--red); text-decoration: underline; }
+.pmast__dateline .proto { display: inline-flex; align-items: center; min-height: 44px; }
+.pmast__row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+  gap: 0.75rem clamp(1rem, 3vw, 2.25rem); padding-block: clamp(0.9rem, 2vw, 1.4rem);
+}
+.wordmark { margin: 0; font-size: clamp(2.4rem, 1.7rem + 2.6vw, 3.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+.wordmark a { text-decoration: none; }
+.wordmark a:hover { color: var(--ink); }
+.pmast .search { width: 100%; max-width: 44rem; }
+.pmast .search input[type="search"] { height: 52px; font-size: 1.125rem; }
+.pmast .search button { height: 52px; }
+.pmast .lang summary { min-height: 52px; }
+.pmast__nav { border-top: 3px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.pmast__nav .nav ul { padding-block: 0.1rem; }
+
+@media (max-width: 559px) { .pmast__dateline .proto { display: none; } }
+@media (max-width: 719px) {
+  .pmast__row { grid-template-columns: 1fr; }
+  .pmast .search { max-width: none; }
+}
+
+/* ------------------------------------------------------- the person ----- */
+.person {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 1.75rem clamp(1.5rem, 4vw, 4rem);
+  align-items: end; padding-block: clamp(2rem, 4.5vw, 3.5rem) clamp(1.75rem, 3.5vw, 2.75rem);
+}
+.person h2 { font-size: clamp(2.6rem, 1.4rem + 4.8vw, 5rem); font-weight: 800; line-height: 0.98; letter-spacing: -0.03em; text-wrap: balance; }
+.person__deck { margin-top: 1.2rem; font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.55rem); line-height: 1.32; max-width: 36rem; }
+.person__deck span { display: block; }
+.person figure { margin: 0; }
+.person img { width: 100%; height: auto; border: 0; }
+.person .credit { margin-top: 0.55rem; }
+@media (max-width: 859px) {
+  .person { grid-template-columns: 1fr; align-items: start; }
+  .person figure { order: 2; max-width: 34rem; }
+}
+
+/* ---------------------------------------------------------- columns ----- */
+.cols {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr) minmax(0, 4fr);
+  border-top: 3px solid var(--ink);
+}
+.col { padding-block: 1.25rem clamp(2rem, 4vw, 3rem); padding-inline: clamp(1rem, 2.6vw, 2.25rem); }
+.col:first-child { padding-left: 0; }
+.col:last-child { padding-right: 0; }
+.col + .col { border-left: 1px solid var(--hair); }
+.sec { font-size: clamp(1.5rem, 1.3rem + 0.7vw, 1.9rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 1rem; }
+.sub { font-size: var(--t-h3); font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; margin: 1.6rem 0 0.6rem; }
+.sub:first-child { margin-top: 0; }
+
+.welcome-p { text-wrap: pretty; }
+
+.lead { margin-top: 1.6rem; padding-top: 1.1rem; border-top: 1px solid var(--hair); }
+.lead__t { display: block; font-size: var(--t-h3); font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+.lead p { margin-top: 0.55rem; }
+.lead .meta { font-size: var(--t-small); color: var(--ink-2); }
+
+.rows li { border-top: 1px solid var(--hair); padding-block: 0.8rem; }
+.rows li:last-child { border-bottom: 1px solid var(--hair); }
+.rows a { font-weight: 700; font-size: 1.125rem; line-height: 1.3; }
+.rows .s { display: block; margin-top: 0.15rem; font-size: var(--t-small); color: var(--ink-2); line-height: 1.4; }
+.rows .s a { font-weight: 400; font-size: inherit; }
+
+.topics li { border-top: 1px solid var(--hair); }
+.topics li:last-child { border-bottom: 1px solid var(--hair); }
+.topics a { display: flex; align-items: center; min-height: 48px; font-size: 1.2rem; font-weight: 600; text-decoration: none; }
+.topics a:hover { text-decoration: underline; }
+a[aria-disabled="true"] { text-decoration-style: dotted; text-decoration-line: underline; text-underline-offset: 0.2em; }
+
+.proto-note { margin-top: 0.9rem; font-size: var(--t-small); color: var(--ink-2); line-height: 1.4; }
+
+.media-card { border-top: 1px solid var(--hair); padding-top: 0.8rem; }
+.media-card .label { display: block; margin-bottom: 0.25rem; }
+.media-card a { font-weight: 700; font-size: 1.125rem; line-height: 1.3; }
+.media-card p { margin-top: 0.3rem; font-size: var(--t-small); color: var(--ink-2); }
+
+.rem li { border-top: 1px solid var(--hair); padding-block: 0.85rem; }
+.rem li:last-child { border-bottom: 1px solid var(--hair); }
+.rem .who { display: flex; align-items: center; min-height: 44px; font-weight: 700; font-size: 1.125rem; line-height: 1.3; }
+.rem p { margin-top: 0.3rem; font-size: var(--t-small); line-height: 1.45; color: var(--ink-2); }
+
+.player--col { margin-bottom: 0.5rem; }
+.player--col .player__title { font-size: 1.125rem; }
+
+/* AI-assisted articles: disclosure at the top of each item */
+.arts { border-top: 3px solid var(--ink); padding-block: 1.25rem clamp(2rem, 4vw, 3rem); }
+.arts ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(1.5rem, 4vw, 3.5rem); }
+.arts li { border-top: 1px solid var(--hair); padding-block: 0.85rem; }
+.arts .tag { display: block; font-size: var(--t-small); color: var(--ink-2); line-height: 1.4; margin-bottom: 0.3rem; }
+.arts a.t { font-weight: 700; font-size: 1.1875rem; line-height: 1.3; }
+
+@media (max-width: 1019px) {
+  .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .col:nth-child(1) { grid-column: 1 / -1; padding-right: 0; border-bottom: 1px solid var(--hair); }
+  .col:nth-child(2) { padding-left: 0; }
+  .col:nth-child(2) + .col { border-left: 1px solid var(--hair); }
+}
+@media (max-width: 719px) {
+  .cols { grid-template-columns: 1fr; }
+  .col, .col:first-child, .col:last-child, .col:nth-child(2) { padding-inline: 0; border-left: 0; border-bottom: 1px solid var(--hair); }
+  .col + .col { border-left: 0; }
+  .arts ul { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------ footer ----- */
+.pfoot { border-top: 8px solid var(--ink); padding-block: clamp(2rem, 4vw, 3rem) clamp(1.75rem, 3vw, 2.5rem); }
+.pfoot__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem clamp(1.5rem, 4vw, 3.5rem); }
+.pfoot h2 { margin-bottom: 0.5rem; }
+.pfoot .plain a { display: flex; align-items: center; min-height: 44px; font-weight: 600; }
+.pfoot .credit { margin-top: 0.5rem; }
+.pfoot__end { margin-top: 1.75rem; padding-top: 1rem; border-top: 1px solid var(--hair); }
+@media (max-width: 859px) { .pfoot__cols { grid-template-columns: 1fr; } }
+
+/* small reveals: a section fades up 8px as it arrives, once. Without script or with reduced motion, nothing hides. */
+.rv-on [data-rv] { opacity: 0; transform: translate3d(0, 8px, 0); transition: opacity 420ms cubic-bezier(0.23, 1, 0.32, 1), transform 420ms cubic-bezier(0.23, 1, 0.32, 1); }
+.rv-on [data-rv].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rv-on [data-rv] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}

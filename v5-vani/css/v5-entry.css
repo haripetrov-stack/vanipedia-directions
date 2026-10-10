@@ -1,0 +1,150 @@
+/* ============================================================================
+   v5 Vāṇī: entry page (typographic poster)
+   The grammar: type is the imagery. Scale does the work a photograph would do.
+   Sheets are hard cuts of ground (paper, ink, saffron), never gradients.
+   Everything that moves is driven by the engine's --sc-p, and every moving
+   rule sits under .v5-live, so the static page (reduced motion, no JS) is complete.
+   ============================================================================ */
+
+/* engine defaults that would hide content when the page is static */
+html:not(.v5-live) [data-sc-cue],
+html:not(.v5-live) [data-sc-in],
+html:not(.v5-live) [data-sc-stagger] > *,
+.v5-static [data-sc-cue],
+.v5-static [data-sc-in],
+.v5-static [data-sc-stagger] > *,
+.v5-static .sc-split__i { opacity: 1 !important; transform: none !important; transition: none !important; clip-path: none !important; }
+.v5-static [data-sc-act] { height: auto !important; }
+.v5-static .sc-stage { position: relative !important; height: auto !important; overflow: visible !important; }
+.v5-static [data-sc-cue], .v5-static [data-sc-in], .v5-static [data-sc-stagger] > * { pointer-events: auto !important; }
+
+/* A layer that is not visible never takes a click or a tap. The engine writes pointer-events on a cue only when the cue
+   flips, so a cue that has not been shown yet would keep "auto" and sit invisibly on top of whatever is under it. */
+.v5-live [data-sc-cue] { pointer-events: none; }
+.v5-live [data-sc-in]:not(.sc-in), .v5-live [data-sc-stagger] > :not(.sc-in) { pointer-events: none; }
+
+/* a "sheet" is one poster: a hard ground, a generous box */
+.sheet-pad { padding: var(--gut); }
+
+/* --------------------------------------------------------------- 1 hero -- */
+/* Devanagari ink is 0.90em tall (baseline to the top of the long-i matra), 2.124em wide; Anton "vāṇī" is 1.678em wide. */
+.hero { --measure: calc(100vw - 2 * var(--gut)); --fd: min(calc(var(--measure) / 3.15), 54svh);
+  min-height: calc(100svh - 76px); display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;
+  padding: 1.25rem var(--gut) clamp(1.5rem, 4svh, 3rem); overflow: hidden; }
+.hero__h1 { font-weight: 400; }
+.hero__word { display: flex; align-items: baseline; gap: 0.12em; font-size: var(--fd); line-height: 0.95; }
+.hero__deva { font-family: var(--f-deva); font-weight: 900; font-size: 1em; line-height: 0.95; letter-spacing: -0.01em;
+  margin-left: -0.035em; color: var(--ink); padding-top: 0.2em; white-space: nowrap; flex: none; }
+.hero__iast { font-family: var(--f-display); font-size: 0.5em; line-height: 1; color: var(--acc); }
+.hero__text { position: relative; z-index: 2; max-width: 26rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+.hero__lede { font-size: var(--t-body); line-height: 1.45; text-wrap: pretty; }
+@media (max-width: 860px) {
+  /* the sacred word is never broken across lines: वाणी fills the width on one line, vāṇī fills it below */
+  .hero { --fd: min(calc(var(--measure) / 2.15), 26svh); --fi: min(calc(var(--measure) / 1.7), 34svh); }
+  .hero__word { display: block; }
+  .hero__deva { display: block; width: auto; white-space: nowrap; }
+  .hero__iast { display: block; font-size: var(--fi); margin-top: 0.1em; white-space: nowrap; }
+}
+
+/* ---------------------------------------------------------------- 2 name -- */
+.name__stage { display: flex; flex-direction: column; justify-content: center; min-height: 100svh; padding: var(--gut); overflow: hidden; }
+.name__grid { --fit: calc(100vw - 2 * var(--gut));
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem 2rem; align-items: end; }
+.name__h { font-weight: 400; font-family: var(--f-display); text-transform: none; display: flex; flex-direction: column; align-items: flex-end; }
+.name__l1 { display: block; font-size: min(calc(var(--fit) / 1.97), 40svh); line-height: 0.98; letter-spacing: 0.035em; padding-top: 0.18em; margin-top: -0.18em; }
+.name__l2 { display: block; font-size: calc(var(--fit) / 4.774); line-height: 1.04; padding: 0.06em 0.03em 0.12em 0; margin-bottom: -0.1em; align-self: stretch; text-align: right; }
+.name__title { font-size: var(--t-body); line-height: 1.45; max-width: 24rem; color: var(--soft); text-wrap: pretty; }
+.name__l1, .name__l2 { pointer-events: none; }
+@media (min-width: 861px), (max-height: 520px) and (orientation: landscape) {
+  .name__grid { grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); grid-template-rows: auto; }
+  .name__h { grid-column: 1 / -1; grid-row: 1; }
+  .name__title { grid-column: 1; grid-row: 1; align-self: start; padding-top: 0.25rem; z-index: 1; }
+}
+/* landscape phones: the stage is only 360 to 400 px tall, so both lines are sized by height and nothing is clipped */
+@media (max-height: 520px) and (orientation: landscape) {
+  .name__stage { padding-block: 0.75rem; min-height: 100svh; }
+  .name__l1 { font-size: min(calc(var(--fit) / 1.97), 27svh); }
+  .name__l2 { font-size: min(calc(var(--fit) / 4.774), 22svh); }
+  .name__title { font-size: 0.9375rem; max-width: 20rem; }
+}
+
+/* ------------------------------------------------------------- 3 to 6 petals -- */
+.petal { --pfs: min(calc((100vw - 2 * var(--gut)) / (var(--r) * 1.03)), 36svh);
+  position: relative; min-height: 100svh; padding: var(--gut); display: grid; align-content: center; overflow: hidden; }
+.petal__grid { display: grid; gap: 1.5rem 3rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.petal__name { font-family: var(--f-display); font-weight: 400; font-size: var(--pfs); line-height: 0.96; text-transform: none; }
+.petal__l1, .petal__l2 { display: block; white-space: nowrap; pointer-events: none; }   /* the big words are decoration (aria-hidden): their text boxes are taller than their lines and must never sit on a link */
+.petal__l1 { margin-left: -0.03em; }
+.petal__l2 { margin-left: -0.03em; }
+.petal .sc-split { padding-block: 0.2em; margin-block: -0.2em; }
+.petal__wipe, .petal__slide { display: inline-block; padding-right: 0.06em; }
+.petal__meta { position: relative; z-index: 2; display: grid; gap: 0.75rem; align-content: start; max-width: 25rem; }
+.petal__what { font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem); line-height: 1.3; font-weight: 600; text-wrap: balance; }
+.petal__eg { color: var(--soft); text-wrap: pretty; }
+.petal__go { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.25rem; font-weight: 700;
+  text-decoration-thickness: 0.09em; text-underline-offset: 0.22em; color: var(--acc); }
+.g-saf .petal__go, .g-saf .petal__eg { color: var(--fg); }
+.petal__eg a { color: var(--fg); }
+@media (min-width: 861px) {
+  .petal__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 25rem); grid-template-rows: auto auto; }
+  .petal__name { grid-column: 1 / -1; grid-row: 1 / 3; display: grid; grid-template-columns: subgrid; grid-template-rows: subgrid; }
+  .petal__l1 { grid-column: 1; grid-row: 1; }
+  .petal__l2 { grid-column: 1 / -1; grid-row: 2; }
+  .petal__meta { grid-column: 2; grid-row: 1; align-self: end; padding-bottom: 0.5rem; }
+}
+
+/* ------------------------------------------------------------- 7 the peak -- */
+/* Static layout first (reduced motion, no JavaScript): the word in ink on paper, then the whole photograph on ink with
+   its caption and credit. Nothing is sliced. The live page plays the doorway sequence over this same content. */
+.peak { background: var(--ink); color: var(--paper); }
+.peak__stage { background: var(--ink); overflow: hidden; }
+.peak__poster { background: var(--paper); color: var(--ink); padding: clamp(1.5rem, 4vw, 3.5rem) var(--gut) clamp(1rem, 3vw, 2.5rem); }
+.peak__h { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; line-height: 1.12; color: var(--acc-l);
+  font-size: min(calc((100vw - 2 * var(--gut)) / 1.679), 50svh); text-align: center; padding-top: 0.12em; }
+.peak__fig { padding: clamp(1.5rem, 4vw, 3rem) var(--gut) clamp(2rem, 5vw, 4rem); display: grid; gap: 1.25rem 2.5rem; justify-content: center; align-items: end; }
+.peak__photo { width: min(100%, 28rem); height: auto; }
+.peak__cap { max-width: 24rem; font-size: var(--t-small); line-height: 1.5; color: var(--soft); }
+.peak__line { font-size: var(--t-body); color: var(--fg); margin-bottom: 0.5rem; }
+.peak__credit { font-size: var(--t-small); }
+.peak__credit a { color: var(--fg); }
+@media (min-width: 861px) { .peak__fig { grid-template-columns: minmax(0, 28rem) minmax(0, 24rem); } }
+
+.v5-live .peak__stage { padding: 0; height: 100svh; }
+.v5-live .peak__poster { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); }
+.v5-live .peak__fig { position: absolute; inset: 0; padding: 0; display: block; pointer-events: none; }
+/* the <img> stays in the page for the alt text and the lazy load; the canvas draws it, 1:1 to device pixels */
+.v5-live .peak__photo { position: absolute; left: 0; top: 0; max-width: none; opacity: 0; pointer-events: none; }
+.v5-live .peak__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; visibility: hidden; }
+.v5-live .peak.is-ready .peak__canvas { visibility: visible; }
+.v5-live .peak__cap { position: absolute; z-index: 3; left: var(--gut); bottom: clamp(1rem, 4svh, 2.5rem); width: min(20rem, calc(100vw - 2 * var(--gut))); max-width: none; }
+@media (min-width: 861px) { .v5-live .peak__cap { bottom: var(--gut); } }
+
+/* ------------------------------------------------------------- 8 the close -- */
+.close { position: relative; z-index: 1; padding: clamp(2.5rem, 8svh, 6rem) var(--gut) clamp(2rem, 5svh, 4rem); text-align: center; }
+.temple { --cw: min(calc(100vw - 2 * var(--gut)), 40rem, 66svh); width: var(--cw); margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+.temple__finial { color: var(--ink); margin-bottom: 0.5rem; }
+.temple__list { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.temple__list li { width: calc(var(--w) * 100%); border: 2px solid var(--ink); border-bottom-width: 0; }
+.temple__list li:last-child { border-bottom-width: 2px; }
+.temple__list a { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; padding: 0.5rem 0.5rem 0.65rem; text-decoration: none; min-height: 44px; }
+.temple__list a:hover .temple__n { color: var(--acc); }
+.temple__list a:hover { background: color-mix(in oklab, var(--ink) 5%, var(--paper)); }
+.temple__n { font-family: var(--f-display); text-transform: none; line-height: 1; letter-spacing: 0;
+  font-size: calc(var(--w) * var(--cw) * 0.86 / var(--r)); }
+.temple__d { font-size: var(--t-small); color: var(--soft); line-height: 1.3; text-wrap: balance; max-width: 30ch; }
+.close__act { margin-top: 1.5rem; }
+
+.foot { background: var(--paper); color: var(--ink); }
+
+/* ============================================================================
+   Motion. Only under the reader's own scroll. Each rule reads --sc-p of its act.
+   ============================================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  /* petal 1: the word grows into the sheet as the sheet arrives */
+  .v5-live .petal--pedia .petal__l2 { transform-origin: 0 100%; will-change: transform;
+    transform: scale(clamp(0.45, calc(0.45 + (var(--sc-p, 0.5) - 0.12) * 1.45), 1)); }
+  /* petal 4: "media" slides in from the side, breadth rather than depth */
+  .v5-live .petal--media .petal__slide { will-change: transform;
+    transform: translate3d(calc((1 - clamp(0, (var(--sc-p, 0.5) - 0.16) / 0.32, 1)) * 70vw), 0, 0); }
+}
+.v5-static .petal__l2, .v5-static .petal__slide { transform: none !important; }

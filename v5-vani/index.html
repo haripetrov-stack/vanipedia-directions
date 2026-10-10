@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vanipedia: Śrīla Prabhupāda's Vani Temple (prototype v5)</title>
+<meta name="description" content="Vanipedia is a dynamic, living encyclopedia of Śrīla Prabhupāda's words (vani). Enter through the four petals: Vanipedia, Vanisource, Vaniquotes and Vanimedia.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f4f3ef">
+<link rel="canonical" href="https://vanipedia.org/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vanipedia">
+<meta property="og:title" content="Vanipedia: Śrīla Prabhupāda's Vani Temple">
+<meta property="og:description" content="A dynamic, living encyclopedia of Śrīla Prabhupāda's words (vani), in four petals.">
+<meta property="og:url" content="https://vanipedia.org/">
+<meta property="og:image" content="assets/photos/walk-780.webp">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23121110'/%3E%3Crect x='11' y='7' width='10' height='18' fill='%23f97b3d'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/devanagari-vani.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/sourcesans3-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  /* motion is decided once, before first paint: reduced motion gets the static page, everything else the live one */
+  (function (h) { var r = matchMedia("(prefers-reduced-motion: reduce)").matches; h.classList.add("js", r ? "v5-static" : "v5-live"); })(document.documentElement);
+</script>
+<link rel="stylesheet" href="engine/scrollcraft.css">
+<link rel="stylesheet" href="css/v5-base.css">
+<link rel="stylesheet" href="css/v5-entry.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://vanipedia.org/#website",
+      "name": "Vanipedia",
+      "url": "https://vanipedia.org/",
+      "inLanguage": "en",
+      "description": "A dynamic, living encyclopedia of Śrīla Prabhupāda's words (vani).",
+      "about": { "@id": "https://vanipedia.org/#prabhupada" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://vanipedia.org/wiki/Special:VaniSearch?s={search_term_string}&tab=text" },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://vanipedia.org/#organization",
+      "name": "Vanipedia",
+      "url": "https://vanipedia.org/",
+      "sameAs": ["https://vanisource.org", "https://vaniquotes.org", "https://vanimedia.org"]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://vanipedia.org/#prabhupada",
+      "name": "A. C. Bhaktivedanta Swami Prabhupāda",
+      "alternateName": "Śrīla Prabhupāda",
+      "jobTitle": "Founder-Ācārya and Preeminent Śikṣā-Guru of the International Society for Krishna Consciousness",
+      "birthDate": "1896",
+      "birthPlace": "Calcutta",
+      "deathDate": "1977-11-14",
+      "deathPlace": "Vṛndāvana"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="mast">
+  <a class="mast__brand" href="index.html">Vanipedia</a>
+  <nav aria-label="Main">
+    <button class="mast__menu" type="button" aria-expanded="false" aria-controls="mast-list">Menu</button>
+    <ul class="mast__list" id="mast-list">
+      <li><a href="vanipedia.html#start">Start here</a></li>
+      <li><a href="vanipedia.html#topics">Browse topics</a></li>
+      <li><a href="vanipedia.html#prabhupada">Śrīla Prabhupāda</a></li>
+      <li><a href="vanipedia.html#read">Read &amp; listen</a></li>
+      <li><a href="https://vanipedia.org/wiki/Vanipedia:About">About</a></li>
+    </ul>
+  </nav>
+  <form class="search" role="search" action="https://vanipedia.org/wiki/Special:VaniSearch" method="get"><input type="hidden" name="tab" value="text">
+    <label class="vh" for="q">Search Vanipedia</label>
+    <input id="q" type="search" name="s" placeholder="Search Vanipedia" autocomplete="off" enterkeyhint="search">
+    <button type="submit">Search</button>
+  </form>
+  <details class="lang">
+    <summary>English</summary>
+    <div class="lang__panel">
+      <a href="index.html" aria-current="true" lang="en">English</a>
+      <a href="https://vanipedia.org/wiki/ES/Srila_Prabhupada:_Fundador-Acarya_de_ISKCON_-_Un_documento_de_base_del_GBC" lang="es" hreflang="es">Español (founder document only)</a>
+      <a href="https://vanipedia.org/wiki/Main_Page">All 102 languages</a>
+    </div>
+  </details>
+</header>
+
+<main id="main">
+
+  <!-- 1 · THE WORD. One word at the scale of the room. Nothing moves: the page opens still. -->
+  <section class="hero g-paper" id="vani" data-sc-act="flow" aria-labelledby="hero-h">
+    <h1 id="hero-h" class="hero__h1">
+      <span class="vh">Vanipedia, Śrīla Prabhupāda's Vani Temple. Vāṇī: </span>
+      <span class="hero__word"><span class="hero__deva" lang="sa-Deva">वा<wbr>णी</span><span class="hero__iast" lang="sa-Latn" aria-hidden="true">vā<wbr>ṇī</span></span>
+    </h1>
+    <div class="hero__text">
+      <p class="hero__lede">A dynamic, living encyclopedia of Śrīla Prabhupāda's words (vani).</p>
+      <a class="cta" href="vanipedia.html">Enter Vanipedia</a>
+    </div>
+  </section>
+
+  <!-- 2 · THE NAME. Ink sheet. "Śrīla" is already set when the sheet arrives; the reader's scroll wipes "Prabhupāda" in. -->
+  <section class="name g-ink" id="name" data-sc-act="pin" data-sc-span="2" aria-labelledby="name-h">
+    <div data-sc-stage class="name__stage">
+      <div class="name__grid">
+        <h2 id="name-h" class="name__h" aria-label="Śrīla Prabhupāda">
+          <span class="name__l1" aria-hidden="true">Śrīla</span>
+          <span class="name__l2" aria-hidden="true" data-sc-reveal="left" data-sc-reveal-at="0.04 0.34">Prabhupāda</span>
+        </h2>
+        <p class="name__title" data-sc-cue="0.4 1 0.25 0">Founder-Ācārya and Preeminent Śikṣā-Guru of the International Society for Krishna Consciousness</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 to 6 · THE FOUR PETALS. Same stamp ("Vani"), four different endings, four different ways of arriving. -->
+  <section class="petal petal--pedia g-paper" id="vanipedia" data-sc-act="flow" aria-labelledby="p-pedia" style="--r: 2.214">
+    <div class="petal__grid">
+      <h2 id="p-pedia" class="petal__name" aria-label="Vanipedia">
+        <span class="petal__l1" aria-hidden="true">Vani</span>
+        <span class="petal__l2" aria-hidden="true">pedia</span>
+      </h2>
+      <div class="petal__meta" data-sc-in data-sc-stagger="70">
+        <p class="petal__what">The encyclopedia of Śrīla Prabhupāda's words.</p>
+        <p class="petal__eg">Article: <a href="https://vanipedia.org/wiki/Absorbed_in_Thought_of_God">Absorbed in Thought of God</a></p>
+        <p><a class="petal__go" href="vanipedia.html">Open Vanipedia</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="petal petal--source g-ink" id="vanisource" data-sc-act="flow" aria-labelledby="p-source" style="--r: 2.796">
+    <div class="petal__grid">
+      <h2 id="p-source" class="petal__name" aria-label="Vanisource">
+        <span class="petal__l1" aria-hidden="true">Vani</span>
+        <span class="petal__l2" aria-hidden="true"><span class="petal__wipe" data-sc-reveal="left" data-sc-reveal-at="0.2 0.46">source</span></span>
+      </h2>
+      <div class="petal__meta" data-sc-in data-sc-stagger="70">
+        <p class="petal__what">His books, lectures, conversations and letters: the primary text.</p>
+        <p class="petal__eg">Verse: <a href="https://vanisource.org/wiki/SB_3.28.6">SB 3.28.6</a></p>
+        <p><a class="petal__go" href="https://vanisource.org">Open Vanisource</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="petal petal--quotes g-saf" id="vaniquotes" data-sc-act="flow" aria-labelledby="p-quotes" style="--r: 2.762">
+    <div class="petal__grid">
+      <h2 id="p-quotes" class="petal__name" aria-label="Vaniquotes">
+        <span class="petal__l1" aria-hidden="true">Vani</span>
+        <span class="petal__l2" aria-hidden="true" data-sc-cue="0.18 1 0.3 0" data-sc-kinetic="chars">quotes</span>
+      </h2>
+      <div class="petal__meta" data-sc-in data-sc-stagger="70">
+        <p class="petal__what">His words gathered by theme.</p>
+        <p class="petal__eg"><q lang="en">Samadhi is not an artificial bodily state…</q> <a href="https://vaniquotes.org/wiki/Samadhi_is_not_an_artificial_bodily_state;_it_is_the_state_achieved_when_the_mind_is_virtually_absorbed_in_thoughts_of_the_Supreme_Personality_of_Godhead">SB 3.28.6, Translation and Purport</a></p>
+        <p><a class="petal__go" href="https://vaniquotes.org">Open Vaniquotes</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="petal petal--media g-paper" id="vanimedia" data-sc-act="flow" aria-labelledby="p-media" style="--r: 2.471">
+    <div class="petal__grid">
+      <h2 id="p-media" class="petal__name" aria-label="Vanimedia">
+        <span class="petal__l1" aria-hidden="true">Vani</span>
+        <span class="petal__l2" aria-hidden="true"><span class="petal__slide">media</span></span>
+      </h2>
+      <div class="petal__meta" data-sc-in data-sc-stagger="70">
+        <p class="petal__what">Audio, video and images.</p>
+        <p class="petal__eg">Images: <a href="https://vanimedia.org/wiki/Images">All 55 Galleries</a></p>
+        <p><a class="petal__go" href="https://vanimedia.org">Open Vanimedia</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · THE PEAK. The word as a window. Pinned for 4.6 viewport-heights, the longest span on the page. -->
+  <section class="peak g-ink" id="peak" data-sc-act="pin" data-sc-span="4.6" aria-labelledby="peak-h">
+    <div data-sc-stage class="peak__stage">
+      <div class="peak__poster"><h2 id="peak-h" class="peak__h" lang="sa-Latn">Vāṇī</h2></div>
+      <figure class="peak__fig">
+        <img class="peak__photo" src="assets/photos/walk-780.webp"
+             srcset="assets/photos/walk-780.webp 780w, assets/photos/walk-1417.webp 1417w"
+             sizes="(max-aspect-ratio: 1/1) 100vw, 60vh" width="1417" height="2161"
+             alt="Śrīla Prabhupāda smiling on a morning walk in Germany, 1974, in a pale hood and a grey shawl, his hand on a walking stick, devotees smiling behind him."
+             loading="lazy" decoding="async">
+        <figcaption class="peak__cap" data-sc-cue="0.86 1 0.3 0">
+          <p class="peak__line">Śrīla Prabhupāda on a morning walk, Germany, 1974.</p>
+          <p class="peak__credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_on_a_morning_walk_in_Germany_1974.jpg">Prabhupada on a morning walk in Germany 1974.jpg</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 8 · THE CLOSE. The page inverts: the smallest type on it, four petals stacked as a temple elevation, one action. -->
+  <section class="close g-paper" id="close" data-sc-act="flow" aria-labelledby="close-h">
+    <h2 id="close-h" class="vh">The four petals</h2>
+    <div class="temple">
+      <svg class="temple__finial" viewBox="0 0 24 56" width="24" height="56" aria-hidden="true" focusable="false"><path d="M12 0v56M5 14h14M8 28h8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <ol class="temple__list">
+        <li style="--w: .44; --r: 4.166"><a href="https://vanimedia.org"><span class="temple__n" lang="en">Vanimedia</span><span class="temple__d">Audio, video and images</span></a></li>
+        <li style="--w: .58; --r: 4.456"><a href="https://vaniquotes.org"><span class="temple__n">Vaniquotes</span><span class="temple__d">His words by theme</span></a></li>
+        <li style="--w: .72; --r: 4.491"><a href="https://vanisource.org"><span class="temple__n">Vanisource</span><span class="temple__d">His books, lectures, conversations and letters</span></a></li>
+        <li style="--w: .86; --r: 3.909"><a href="vanipedia.html"><span class="temple__n">Vanipedia</span><span class="temple__d">The encyclopedia of his words</span></a></li>
+      </ol>
+    </div>
+    <p class="close__act"><a class="cta" href="vanipedia.html">Enter Vanipedia</a></p>
+  </section>
+
+</main>
+
+<footer class="foot g-paper">
+  <div class="foot__row">
+    <a href="vanipedia.html">Vanipedia main page</a>
+    <a href="https://vanipedia.org/wiki/Vanipedia:About">About</a>
+    <a href="https://vanipedia.org/wiki/Vanipedia:Methodology_for_AI-Assisted_Articles">Editorial methodology</a>
+  </div>
+  <p class="foot__credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_on_a_morning_walk_in_Germany_1974.jpg">Prabhupada on a morning walk in Germany 1974.jpg</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons.</p>
+  <p class="foot__credit">Prototype v5, not indexed. Fonts: Anton, Source Sans 3 and Noto Sans Devanagari (SIL Open Font License).</p>
+</footer>
+
+<script src="js/v5-common.js"></script>
+<script src="engine/scrollcraft.js"></script>
+<script src="js/v5-entry.js"></script>
+</body>
+</html>

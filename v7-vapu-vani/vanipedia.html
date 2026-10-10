@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vanipedia: the essence of Vedic knowledge</title>
+<meta name="description" content="Vanipedia, the encyclopedia of Śrīla Prabhupāda's words: introductory articles, topics, audio and images. Design prototype.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#24443a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vanipedia">
+<meta property="og:title" content="Vanipedia: the essence of Vedic knowledge">
+<meta property="og:description" content="The encyclopedia of Śrīla Prabhupāda's words.">
+<meta property="og:image" content="assets/img/og-vapu-vani.jpg">
+<meta property="og:image:alt" content="Śrīla Prabhupāda singing in Golden Gate Park, San Francisco, February 1967.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2324443a'/%3E%3Cg fill='%23e7c66a'%3E%3Cpath d='M16 4c3 4 3 8 0 12-3-4-3-8 0-12Z'/%3E%3Cpath d='M16 28c-3-4-3-8 0-12 3 4 3 8 0 12Z'/%3E%3Cpath d='M4 16c4-3 8-3 12 0-4 3-8 3-12 0Z'/%3E%3Cpath d='M28 16c-4 3-8 3-12 0 4-3 8-3 12 0Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/cormorant-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vapu.css">
+<link rel="stylesheet" href="main.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Vanipedia",
+      "url": "https://vanipedia.org/",
+      "inLanguage": "en",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://vanipedia.org/wiki/Special:VaniSearch?s={search_term_string}" },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "name": "Vanipedia",
+      "url": "https://vanipedia.org/"
+    },
+    {
+      "@type": "Person",
+      "name": "A. C. Bhaktivedanta Swami Prabhupāda",
+      "alternateName": "Śrīla Prabhupāda",
+      "jobTitle": "Founder-Ācārya and Preeminent Śikṣā-Guru of the International Society for Krishna Consciousness",
+      "birthPlace": "Calcutta",
+      "birthDate": "1896",
+      "sameAs": ["https://vanipedia.org/wiki/Srila_Prabhupada:_The_Founder-Acarya_of_ISKCON_-_A_GBC_Foundational_Document"]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="site">
+<header class="top">
+  <a class="mark" href="index.html" aria-label="Vanipedia, back to the entry page">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M16 3c3.4 4.4 3.4 8.6 0 13-3.4-4.4-3.4-8.6 0-13Z"/><path d="M16 29c-3.4-4.4-3.4-8.6 0-13 3.4 4.4 3.4 8.6 0 13Z"/><path d="M3 16c4.4-3.4 8.6-3.4 13 0-4.4 3.4-8.6 3.4-13 0Z"/><path d="M29 16c-4.4 3.4-8.6 3.4-13 0 4.4-3.4 8.6-3.4 13 0Z"/></g></svg>
+    <span>Vanipedia</span>
+  </a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="#start">Start here</a></li>
+      <li><a href="#topics">Browse topics</a></li>
+      <li><a href="#prabhupada">Śrīla Prabhupāda</a></li>
+      <li><a href="#listen">Read &amp; listen</a></li>
+      <li><a href="https://vanipedia.org/wiki/Vanipedia:About">About</a></li>
+    </ul>
+  </nav>
+  <details class="lang" data-lang>
+    <summary><span><span class="lang__l">Language: </span>English</span></summary>
+    <div class="lang__panel">
+      <ul>
+        <li><a href="vanipedia.html" lang="en" aria-current="true">English</a></li>
+        <li><a href="#" aria-disabled="true">Spanish</a></li>
+        <li><a href="#" aria-disabled="true">Hindi</a></li>
+        <li><a href="#" aria-disabled="true">Finnish</a></li>
+        <li><a href="#" aria-disabled="true">Hungarian</a></li>
+        <li><a href="#" aria-disabled="true">Indonesian</a></li>
+        <li><a href="#" aria-disabled="true">Kannada</a></li>
+        <li><a href="#" aria-disabled="true">Punjabi</a></li>
+        <li><a href="https://vanipedia.org/wiki/Main_Page">All 102 languages (Vanipedia)</a></li>
+      </ul>
+      <p>Prototype: only English is wired.</p>
+    </div>
+  </details>
+  <form class="search" role="search" action="https://vanipedia.org/wiki/Special:VaniSearch" method="get">
+    <label class="sr" for="q-main">Search Vanipedia</label>
+    <input id="q-main" type="search" name="s" placeholder="Search Vanipedia" autocomplete="off" enterkeyhint="search">
+    <input type="hidden" name="tab" value="text">
+    <button type="submit">Search</button>
+  </form>
+</header>
+
+<aside class="wall" aria-label="Śrīla Prabhupāda">
+  <div class="wall__in">
+    <img src="assets/img/walk-560.webp"
+         srcset="assets/img/walk-360.webp 360w, assets/img/walk-560.webp 560w, assets/img/walk-840.webp 840w"
+         sizes="(min-width: 960px) 21vw, 150px" width="840" height="1281" fetchpriority="high"
+         alt="Śrīla Prabhupāda smiling on a morning walk in Germany, in a hooded shawl and holding a cane, with disciples behind him. Colour photograph, 1974.">
+    <p class="wall__name">Śrīla Prabhupāda</p>
+    <p class="wall__title">Founder-Ācārya and Preeminent Śikṣā-Guru of the International Society for Krishna Consciousness</p>
+    <p class="credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_on_a_morning_walk_in_Germany_1974.jpg">Prabhupada on a morning walk in Germany 1974</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons</p>
+  </div>
+</aside>
+
+<main id="main">
+  <div class="intro" data-reveal>
+    <h1>Vanipedia</h1>
+    <p class="slogan">The essence of Vedic knowledge</p>
+    <p class="welcome">Welcome to Vanipedia, a dynamic, living encyclopedia of Śrīla Prabhupāda's words (vani).</p>
+  </div>
+
+  <div class="cols">
+    <section class="sec" id="start" aria-labelledby="h-start" data-reveal>
+      <h2 id="h-start">Start here</h2>
+      <ul class="links">
+        <li><a href="#articles">Start learning</a></li>
+        <li><a href="#topics">Find a topic or source</a></li>
+        <li><a href="#listen">Read and listen in my language</a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="articles" aria-labelledby="h-articles" data-reveal>
+      <h2 id="h-articles">Introductory articles</h2>
+      <ul class="links">
+        <li><a href="https://vanipedia.org/wiki/Srila_Prabhupada:_The_Founder-Acarya_of_ISKCON_-_A_GBC_Foundational_Document">Srila Prabhupada: The Founder-Acarya of ISKCON. A GBC Foundational Document</a></li>
+        <li><a class="lang-link" href="https://vanipedia.org/wiki/ES/Srila_Prabhupada:_Fundador-Acarya_de_ISKCON_-_Un_documento_de_base_del_GBC" lang="es" hreflang="es">Spanish: Un documento de base del GBC</a></li>
+        <li><a href="https://vanipedia.org/wiki/Absorbed_in_Thought_of_God">Absorbed in Thought of God</a></li>
+        <li><a href="https://vanipedia.org/wiki/Predicament_of_Modern_Man">Predicament of Modern Man</a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="prabhupada" aria-labelledby="h-prabhupada" data-reveal>
+      <h2 id="h-prabhupada">Śrīla Prabhupāda</h2>
+      <dl class="life">
+        <div><dt>1896</dt><dd>Born in Calcutta.</dd></div>
+        <div><dt>1922</dt><dd>Meets Śrīla Bhaktisiddhānta Sarasvatī.</dd></div>
+        <div><dt>1944</dt><dd>Starts Back to Godhead.</dd></div>
+        <div><dt>1959 to 1965</dt><dd>Rādhā-Dāmodara temple, Vṛndāvana.</dd></div>
+        <div><dt>August 1965</dt><dd>Sails on the Jaladuta.</dd></div>
+        <div><dt>July 1966</dt><dd>ISKCON is incorporated in New York.</dd></div>
+        <div><dt>January 1967</dt><dd>San Francisco.</dd></div>
+        <div><dt>1971</dt><dd>Moscow.</dd></div>
+        <div><dt>14 November 1977</dt><dd>Departure in Vṛndāvana.</dd></div>
+      </dl>
+    </section>
+
+    <section class="sec" id="topics" aria-labelledby="h-topics" data-reveal>
+      <h2 id="h-topics">Browse topics</h2>
+      <ul class="links">
+        <li><a href="https://vanipedia.org/wiki/Main_Page">Topics</a></li>
+        <li><a href="https://vanipedia.org/wiki/Main_Page">Personalities</a></li>
+        <li><a href="https://vanipedia.org/wiki/Main_Page">Places</a></li>
+        <li><a href="https://vanipedia.org/wiki/Main_Page">Questions to Prabhupada</a></li>
+      </ul>
+      <p class="note">Prototype: these four open the live Vanipedia.</p>
+    </section>
+
+    <section class="sec" id="listen" aria-labelledby="h-listen" data-reveal>
+      <h2 id="h-listen">Read and listen</h2>
+      <div class="nd" data-nd>
+        <button class="nd__btn" type="button" aria-label="Play the Nectar Drop" hidden>
+          <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.2v11.6L13.4 8z" fill="currentColor"/></svg>
+          <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2h3v12h-3zM9.5 2h3v12h-3z" fill="currentColor"/></svg>
+        </button>
+        <p class="nd__title">Nectar Drop: lecture, Hamburg, 5 September 1969</p>
+        <div class="nd__meta" hidden><span class="nd__time">0:00</span><span class="nd__bar"><i></i></span></div>
+        <audio controls preload="none" src="https://s3.amazonaws.com/vanipedia/Nectar+Drops/690905LE-HAMBURG_ND_01.mp3"></audio>
+      </div>
+      <ul class="links" style="margin-top:1.25rem">
+        <li><a href="https://vanipedia.org/wiki/Category:Nectar_Drops_from_Srila_Prabhupada">Nectar Drops (Vanipedia)</a></li>
+        <li><a href="https://vanimedia.org/wiki/Images">Vanimedia: Image galleries</a></li>
+        <li><a href="http://vanimedia.org/w/images/f/fa/SP_Disciples_Notebook_WRITTEN.pdf">His Disciples list, handwritten (Vanimedia, PDF)</a></li>
+        <li><a href="http://vanimedia.org/w/images/c/cd/60_Ways_to_Read_Poster_AO_841x1189.pdf">His 60 Ways to Study His Books (Vanimedia, PDF)</a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="media" aria-labelledby="h-media" data-reveal>
+      <h2 id="h-media">Śrīla Prabhupāda in the Media</h2>
+      <ul class="links">
+        <li><a href="#" aria-disabled="true"><span>A Message of Peace and Pure Spiritual Realization<small>Chula Vista Star News (1976)</small></span></a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="disciples" aria-labelledby="h-disciples" data-reveal>
+      <h2 id="h-disciples">Disciples Remember Śrīla Prabhupāda</h2>
+      <ul class="links">
+        <li><a href="#" aria-disabled="true">Yaduvendu dāsa</a></li>
+        <li><a href="#" aria-disabled="true">Naikātma dāsa</a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="thematic" aria-labelledby="h-thematic" data-reveal>
+      <h2 id="h-thematic">Thematic articles</h2>
+      <p class="ai">AI-assisted summaries of Vaniquotes categories. Quotations verbatim; framing generated. See <a href="https://vanipedia.org/wiki/Vanipedia:Methodology_for_AI-Assisted_Articles">Methodology</a>.</p>
+      <ul class="links">
+        <li><a href="#" aria-disabled="true">Process to Achieve the Desired Success</a></li>
+        <li><a href="#" aria-disabled="true">The Perils of Having No Idea</a></li>
+        <li><a href="#" aria-disabled="true">Everyone Is Trying to Become the Master</a></li>
+        <li><a href="#" aria-disabled="true">Struggle in Conditioned World</a></li>
+      </ul>
+      <p class="note">Prototype: article links are not wired.</p>
+    </section>
+
+    <section class="sec" id="petals" aria-labelledby="h-petals" data-reveal>
+      <h2 id="h-petals">The other petals</h2>
+      <ul class="petals">
+        <li><h3>Vanisource</h3><a class="go" href="https://vanisource.org">Open Vanisource</a><p>His books, lectures, conversations and letters.</p></li>
+        <li><h3>Vaniquotes</h3><a class="go" href="https://vaniquotes.org">Open Vaniquotes</a><p>His words gathered by theme.</p></li>
+        <li><h3>Vanimedia</h3><a class="go" href="https://vanimedia.org">Open Vanimedia</a><p>Audio, video and images.</p></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <nav aria-label="About Vanipedia">
+    <ul class="foot__links">
+      <li><a href="https://vanipedia.org/wiki/Vanipedia:About">About</a></li>
+      <li><a href="https://vanipedia.org/wiki/Vanipedia:Methodology_for_AI-Assisted_Articles">Editorial policy</a></li>
+      <li><a href="#" aria-disabled="true">Privacy</a></li>
+      <li><a href="#" aria-disabled="true">Contact</a></li>
+      <li><a href="#" aria-disabled="true">Volunteer and Donate</a></li>
+    </ul>
+  </nav>
+  <p class="foot__small">Design prototype, direction 7 of 8, for the team meeting of 10 October 2026.</p>
+</footer>
+</div>
+
+<script src="vapu.js"></script>
+</body>
+</html>

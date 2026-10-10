@@ -1,0 +1,135 @@
+/* ==========================================================================
+   Vanipedia main page: a working portal in the same visual language as the
+   entry page. Search first, then plain lists. Nothing moves, nothing fades in,
+   nothing is fixed except the header.
+   ========================================================================== */
+
+body.portal main { padding-top: var(--hdr); }
+.bar .menu-btn { margin-left: auto; }
+.wrap { width: 100%; max-width: var(--sc-maxw); margin-inline: auto; padding-inline: var(--sc-gutter); }
+
+/* ---- search first ------------------------------------------------------- */
+.find { padding-block: clamp(36px, 6vw, 88px) clamp(28px, 4vw, 56px); }
+.find h1 {
+  margin: 0; font: 300 clamp(2.8rem, 6.4vw, 5.4rem)/1.02 var(--sc-font-display); letter-spacing: -0.022em;
+}
+.find__slogan { margin: 10px 0 0; font-size: clamp(1.125rem, 1.7vw, 1.375rem); color: var(--sc-ink-soft); }
+.bigsearch { display: flex; margin: 26px 0 0; max-width: 46rem; }
+.bigsearch input {
+  flex: 1 1 auto; min-width: 0; height: 56px; padding: 0 18px;
+  background: var(--sc-surface); color: var(--sc-ink);
+  border: 1px solid var(--ui); border-right: 0; border-radius: var(--r) 0 0 var(--r);
+  font-size: 1.125rem;
+}
+.bigsearch input::placeholder { color: #aaa7bd; opacity: 1; }
+.bigsearch button {
+  display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 clamp(16px, 3vw, 28px); cursor: pointer;
+  background: var(--sc-accent); color: var(--sc-accent-ink); border: 1px solid var(--sc-accent);
+  border-radius: 0 var(--r) var(--r) 0; font-weight: 600; font-size: 1.0625rem;
+}
+.bigsearch button:hover { background: #ffbe5c; }
+.bigsearch svg { width: 20px; height: 20px; flex: none; }
+.welcome { margin: 26px 0 0; max-width: 62ch; color: color-mix(in oklab, var(--sc-ink) 90%, var(--sc-canvas)); text-wrap: pretty; }
+
+/* ---- two columns on wide screens, one column on a phone ------------------ */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: clamp(40px, 6vw, 96px); padding-bottom: 40px; }
+@media (min-width: 980px) { .grid { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); } }
+.sec { margin-top: 56px; }
+.sec:first-child { margin-top: 8px; }
+.sec > h2 {
+  margin: 0 0 18px; font: 400 clamp(1.75rem, 2.7vw, 2.3rem)/1.15 var(--sc-font-display); letter-spacing: -0.005em; text-wrap: balance;
+}
+.sec > h2::before { content: ""; display: block; width: 36px; height: 3px; margin-bottom: 16px; background: var(--sc-accent); }
+.sub { margin: 28px 0 10px; font: 600 1.0625rem/1.3 var(--sc-font-text); letter-spacing: 0.01em; color: var(--sc-ink-soft); }
+.sec > h2 + .sub { margin-top: 0; }
+.col p { max-width: 62ch; }
+
+/* ---- lists: hairlines, no cards ------------------------------------------ */
+.list { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--sc-hairline); }
+.list li { border-top: 1px solid var(--sc-hairline); }
+.list a {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+  min-height: 52px; padding: 13px 0; text-decoration: none;
+}
+.list a:hover span { text-decoration: underline; text-underline-offset: 0.2em; }
+.list small { flex: none; font-size: 0.9375rem; color: var(--sc-ink-soft); }
+a.is-proto { color: var(--sc-ink-soft); cursor: default; text-decoration: none; }
+a.is-proto:hover { text-decoration: none; }
+.item a.is-proto { text-decoration: none; }
+.note { margin: 12px 0 0; font-size: 0.9375rem; color: var(--sc-ink-soft); }
+.disclosure {
+  margin: 0 0 14px; padding: 12px 16px; max-width: 62ch;
+  background: var(--sc-surface); border: 1px solid var(--sc-hairline-strong); border-radius: var(--r);
+  font-size: 1rem; line-height: 1.5;
+}
+.disclosure a { color: var(--sc-ink); }
+
+/* ---- Śrīla Prabhupāda ----------------------------------------------------- */
+.who { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (min-width: 560px) { .who { grid-template-columns: 220px minmax(0, 1fr); gap: 28px; } }
+.who__fig { margin: 0; }
+.who__img { width: 100%; max-width: 280px; height: auto; aspect-ratio: var(--ar); border: 1px solid var(--sc-hairline-strong); background: var(--sc-surface); }
+.who__fig figcaption { margin-top: 8px; font-size: 0.8125rem; line-height: 1.45; color: var(--sc-ink-soft); max-width: 280px; }
+.who__title { margin: 0; font: 400 clamp(1.4rem, 2.2vw, 1.8rem)/1.25 var(--sc-font-display); letter-spacing: -0.005em; text-wrap: balance; }
+.who__doc { margin: 18px 0 0; }
+.who__doc-s { font-size: 0.9375rem; color: var(--sc-ink-soft); }
+
+/* ---- the timeline: a component, not the page ------------------------------ */
+.years { margin-top: 40px; }
+.years .sub { margin-top: 0; }
+.years__btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; padding: 0; list-style: none; }
+.years__btn {
+  min-height: 44px; min-width: 60px; padding: 0 14px; cursor: pointer;
+  background: transparent; color: var(--sc-ink); border: 1px solid var(--ui); border-radius: var(--r);
+  font-weight: 600; font-size: 1rem;
+}
+.years__btn:hover { border-color: var(--sc-ink); }
+.years__btn[aria-pressed="true"] { background: var(--sc-accent); color: var(--sc-accent-ink); border-color: var(--sc-accent); }
+.years__list { list-style: none; margin: 0; padding: 0; }
+.years__list > li { padding: 16px 0; border-top: 1px solid var(--sc-hairline); }
+.years__date { margin: 0; font: 300 clamp(2rem, 3.4vw, 2.8rem)/1.05 var(--sc-font-display); letter-spacing: -0.015em; }
+.years__place { margin: 6px 0 0; font: 400 1.5rem/1.2 var(--sc-font-display); }
+.years__list p { margin: 8px 0 0; }
+.years__list .years__place { margin-top: 6px; }
+.years__more { font-size: 1rem; }
+/* with scripts, one year shows at a time and the box keeps the height of the tallest, so nothing below it moves */
+html.js .years__list { display: grid; }
+html.js .years__list > li { grid-area: 1 / 1; border-top: 0; padding-top: 0; }
+html.js .years__list > li[hidden] { display: block; visibility: hidden; }
+
+/* ---- read and listen ------------------------------------------------------- */
+.nd { margin: 14px 0; }
+.nd figcaption { margin-bottom: 8px; font-size: 1rem; color: var(--sc-ink-soft); }
+.nd audio { width: 100%; height: 48px; }
+.quote { margin: 0; font: 400 1.375rem/1.3 var(--sc-font-display); }
+.quote a { text-decoration-thickness: 1px; }
+.src { margin: 8px 0 0; font-size: 1rem; color: var(--sc-ink-soft); }
+
+.item { margin: 0; }
+.item__t { margin: 0; font: 400 1.375rem/1.25 var(--sc-font-display); }
+.item p { margin: 8px 0 0; }
+.item__m { color: var(--sc-ink-soft); font-size: 1rem; }
+.item + .item { margin-top: 22px; }
+article.item .is-proto { color: var(--sc-ink); }
+.sec .item:first-of-type .item__t a.is-proto { color: var(--sc-ink); }
+
+/* ---- footer ----------------------------------------------------------------- */
+.foot { margin-top: 24px; padding-block: 48px 64px; border-top: 1px solid var(--sc-hairline); }
+.foot__h, .credits-s h2 { margin: 0 0 18px; font: 400 clamp(1.5rem, 2.2vw, 1.9rem)/1.2 var(--sc-font-display); }
+.petals { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--sc-hairline); }
+@media (min-width: 760px) { .petals { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 28px; border-bottom: 0; } }
+.petal {
+  display: grid; gap: 4px; align-content: start; padding: 16px 0 18px; min-height: 48px;
+  text-decoration: none; border-top: 1px solid var(--sc-hairline);
+}
+@media (min-width: 760px) { .petal { border-top: 2px solid var(--sc-accent); padding-top: 18px; } }
+.petal__name { font: 400 1.6rem/1.15 var(--sc-font-display); }
+.petal:hover .petal__name { text-decoration: underline; text-underline-offset: 0.18em; }
+.petal__what { color: var(--sc-ink-soft); }
+.petal__host { font: 600 0.8125rem/1.3 var(--sc-font-text); letter-spacing: 0.03em; color: var(--sc-accent); }
+.foot__links { display: flex; flex-wrap: wrap; gap: 4px 28px; margin: 32px 0 0; padding: 0; list-style: none; }
+.foot__links a { display: inline-flex; align-items: center; min-height: 44px; }
+.credits-s { margin-top: 36px; }
+.credits-s p { margin: 0; max-width: 70ch; font-size: 0.9375rem; line-height: 1.55; color: var(--sc-ink-soft); }
+.credits-s a { color: var(--sc-ink); }
+.proto { margin: 28px 0 0; font-size: 0.9375rem; color: var(--sc-ink-soft); }

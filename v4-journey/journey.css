@@ -1,0 +1,366 @@
+/* ==========================================================================
+   Entry page: one fixed stage, one line. Written for html.fx (JavaScript on,
+   motion allowed). Everything under "static" is what a visitor gets with
+   reduced motion or without JavaScript: the same journey as a plain page.
+   ========================================================================== */
+
+.journey {
+  position: relative;
+  /* geometry shared with journey.js through the probes below */
+  --lineoff: calc(var(--bar) + 66px);       /* the line runs this far above the bottom edge */
+  --ax: 30vw;                               /* where the pen tip rests on screen */
+  --ay: calc(100svh - var(--lineoff));
+  --jx: 41vw;                               /* where the line divides into four */
+  --jy: calc((var(--hdr) + 100svh - var(--bar)) / 2);
+  --fx: calc(var(--sc-gutter) + 8px);       /* where the whole route starts in the final view */
+  --fy: var(--hdr);
+  --rt: calc(var(--hdr) + 28px);            /* top of the plate and text region */
+  --rb: calc(var(--lineoff) + 52px);        /* its distance from the bottom edge */
+  --colw: min(34rem, 44vw);
+  --ghost: color-mix(in oklab, var(--sc-ink-soft) 72%, transparent);
+}
+/* Only what is visible may take a click or a tap: every layer that fades starts inert. */
+[data-sc-cue], [data-sc-copy], .sc-world__copy, .world, .sc-grain, .probe { pointer-events: none; }
+.probe { position: fixed; left: 0; top: 0; width: 0; height: 0; visibility: hidden; pointer-events: none; }
+.probe--a { left: var(--ax); top: var(--ay); }
+.probe--j { left: var(--jx); top: var(--jy); }
+.probe--f { left: var(--fx); top: var(--fy); }
+.probe--s { height: 100svh; }
+
+/* Short landscape screens (a phone on its side): everything sits closer. */
+@media (max-height: 560px) and (min-aspect-ratio: 21/20) {
+  :root { --bar: 44px; --hdr: 56px; }
+  .journey { --lineoff: calc(var(--bar) + 36px); --rt: calc(var(--hdr) + 12px); --rb: calc(var(--lineoff) + 30px); }
+}
+
+/* Portrait: the line is a rail down the left edge and the journey reads top to bottom. */
+@media (max-aspect-ratio: 21/20) {
+  .journey {
+    --ax: clamp(22px, 7vw, 56px);
+    --ay: 60svh;
+    --jx: var(--ax);
+    --jy: max(41svh, calc(var(--hdr) + 190px));
+    --fx: var(--sc-gutter);
+    --fy: calc(var(--hdr) + 26px);
+    --rt: calc(var(--hdr) + 14px);
+    --rb: calc(var(--bar) + 16px);
+    --ph: calc(var(--ay) - var(--rt) - 134px);   /* tallest a photograph may be; journey.js refines --ay, --jy and --ph from the real text */
+  }
+}
+
+/* ------------------------------------------------------------ the stage ---- */
+html.fx .sc-grain { z-index: 10; opacity: 0.05; }
+html.fx .world { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+.route { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; display: none; --ks: 1; }
+.route--land { display: block; }
+@media (max-aspect-ratio: 21/20) {
+  .route--land { display: none; }
+  .route--port { display: block; }
+}
+.route__ghostg { opacity: 1; }
+.route__ghost {
+  fill: none; stroke: var(--ghost); stroke-width: calc(2.6px * var(--ks));
+  stroke-linecap: round; stroke-dasharray: 0 calc(11px * var(--ks));
+}
+.route__line {
+  fill: none; stroke: var(--sc-accent); stroke-width: calc(3px * var(--ks));
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1 1; stroke-dashoffset: 1;
+}
+.route__node {
+  fill: var(--sc-canvas); stroke: color-mix(in oklab, var(--sc-ink-soft) 75%, transparent);
+  stroke-width: calc(2px * var(--ks));
+}
+.route__node.is-past { fill: var(--sc-accent); stroke: var(--sc-accent); }
+.route__label {
+  fill: var(--sc-ink-soft); font-family: var(--sc-font-text); font-weight: 600;
+  font-size: calc(12.5px * var(--ks)); letter-spacing: 0.02em;
+}
+.route__label.is-past { fill: var(--sc-ink); }
+.route.is-dense .route__label { opacity: 0; }
+.route--port .route__label { display: none; }   /* the rail is too narrow for labels: the map along the bottom carries the years */
+.route__tip { fill: var(--sc-accent); stroke: var(--sc-canvas); stroke-width: calc(2px * var(--ks)); }
+.fan__path {
+  fill: none; stroke: var(--sc-accent); stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 1 1; stroke-dashoffset: 1;
+}
+
+/* ------------------------------------------------------- station copy ----- */
+/* Every copy block hugs its own text, so the contrast pass measures the ground
+   behind the words and not the photograph beside them. */
+html.fx .stn {
+  position: absolute; left: var(--sc-gutter); width: var(--colw); top: var(--rt); bottom: var(--rb);
+  display: flex; flex-direction: column; justify-content: center;
+}
+html.fx .stn[data-side="trail"] { left: auto; right: var(--sc-gutter); }
+
+.stn__h { margin: 0; font-weight: inherit; }
+.stn__time {
+  display: block; font: 300 clamp(2.5rem, 4.3vw, 4.4rem)/1.04 var(--sc-font-display);
+  letter-spacing: -0.015em; color: var(--sc-ink); text-wrap: balance;
+}
+.stn__time--range { font-size: clamp(2.2rem, 3.6vw, 3.6rem); }
+.stn__place {
+  display: block; margin-top: 0.38em; font: 400 clamp(1.65rem, 2.6vw, 2.5rem)/1.12 var(--sc-font-display);
+  letter-spacing: -0.005em; text-wrap: balance;
+}
+.stn--type .stn__place { margin-top: 0; }
+.stn__p {
+  margin: 16px 0 0; max-width: 30ch; font-size: var(--sc-t-base); line-height: 1.55; text-wrap: pretty;
+  color: color-mix(in oklab, var(--sc-ink) 90%, var(--sc-canvas));
+}
+
+/* Stations without a photograph: the year itself is the plate. */
+html.fx .yr {
+  position: absolute; top: var(--rt); bottom: var(--rb); width: min(42vw, 40rem);
+  display: flex; align-items: center;
+}
+html.fx .yr[data-side="lead"]  { right: var(--sc-gutter); justify-content: flex-end; }
+html.fx .yr[data-side="trail"] { left: var(--sc-gutter); justify-content: flex-start; }
+.yr__time {
+  display: flex; flex-direction: column; align-items: flex-start; color: var(--sc-ink);
+  font: 300 clamp(5.4rem, 17vw, 16rem)/0.9 var(--sc-font-display); letter-spacing: -0.04em;
+}
+.yr__mo {
+  font: 600 clamp(0.875rem, 1.15vw, 1.0625rem)/1 var(--sc-font-text); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--sc-ink-soft); margin: 0 0 1.1rem 0.4rem;
+}
+
+/* hero */
+html.fx .hero { width: min(52rem, 64vw); justify-content: flex-end; }
+.hero__h {
+  margin: 0; font: 300 clamp(2.6rem, 6.3vw, 6.4rem)/1.02 var(--sc-font-display);
+  letter-spacing: -0.022em; text-wrap: balance;
+}
+.hero__sub { margin: 22px 0 0; font-size: clamp(1.125rem, 1.65vw, 1.5rem); line-height: 1.4; color: var(--sc-ink-soft); }
+.hero__act { margin: 34px 0 0; }
+
+/* the peak statement and the four doors */
+html.fx .peak, html.fx .doorsblock { bottom: calc(var(--bar) + 40px); top: calc(var(--hdr) + 36px); }
+html.fx .peak { justify-content: flex-start; padding-top: 2vh; width: min(24rem, 40vw); bottom: auto; }   /* only as tall as its words, so nothing else sits inside its box */
+.peak__h {
+  margin: 0; font: 300 clamp(2.3rem, 4.6vw, 4.8rem)/1.05 var(--sc-font-display);
+  letter-spacing: -0.02em; text-wrap: balance;
+}
+html.fx .doorsblock { left: auto; right: var(--sc-gutter); width: min(30rem, 40vw); justify-content: stretch; }
+html.fx .doorsblock > .doors {
+  width: 100%; height: 100%; margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.door {
+  display: grid; grid-template-columns: 18px 1fr; column-gap: 18px; row-gap: 3px; align-items: center;
+  padding: 10px 0; color: inherit; text-decoration: none; min-height: 44px;
+}
+.door__node {
+  grid-row: 1 / 4; align-self: center; width: 18px; height: 18px; border-radius: 50%;
+  border: 3px solid var(--sc-accent); background: var(--sc-canvas);
+  transition: background-color 140ms var(--sc-ease-out);
+}
+.door__name { grid-column: 2; font: 400 clamp(1.7rem, 2.5vw, 2.4rem)/1.1 var(--sc-font-display); letter-spacing: -0.005em; }
+.door__what { grid-column: 2; font-size: 1.0625rem; line-height: 1.4; color: var(--sc-ink-soft); }
+.door__host { grid-column: 2; font: 600 0.8125rem/1.2 var(--sc-font-text); letter-spacing: 0.03em; color: var(--sc-accent); }
+.door:hover .door__node { background: var(--sc-accent); }
+.door:hover .door__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.door:focus-visible { outline-offset: 4px; }
+/* the doors must not drift: the fan is drawn to their markers */
+html.fx .doorsblock, html.fx .peak { transform: none !important; }
+
+/* ------------------------------------------------------------ the plates --- */
+html.fx .plate {
+  position: absolute; margin: 0; top: var(--rt); bottom: var(--rb); width: min(42vw, 40rem); container-type: inline-size;
+  display: flex; flex-direction: column; justify-content: center;
+}
+html.fx .plate[data-side="lead"]  { right: var(--sc-gutter); align-items: flex-end; }
+html.fx .plate[data-side="trail"] { left: var(--sc-gutter);  align-items: flex-start; }
+.plate__box { width: min(100%, calc((100svh - var(--rt) - var(--rb) - 72px) * var(--ar))); }
+.plate__img {
+  width: 100%; height: auto; aspect-ratio: var(--ar);
+  border: 1px solid var(--sc-hairline-strong); background: var(--sc-surface);
+  transform: none !important;           /* the engine pushes posters in; photographs of him are never scaled or cropped */
+}
+.plate figcaption { margin-top: 12px; font-size: 0.8125rem; line-height: 1.45; color: var(--sc-ink-soft); width: max(100%, min(17rem, 100cqw)); max-width: 46ch; }
+html.fx .plate[data-side="lead"] figcaption { margin-left: auto; }
+.plate__credit { opacity: 0.9; }
+.journey.tight .plate__credit { display: none; }
+.journey.tight .plate figcaption { width: auto; max-width: 100%; }
+
+/* ----------------------------------------------------- portrait variant ---- */
+@media (max-aspect-ratio: 21/20) {
+  html.fx .stn {
+    left: calc(var(--ax) + 26px); right: var(--sc-gutter); width: auto;
+    top: calc(var(--ay) - 34px); bottom: calc(var(--bar) + 12px);
+    justify-content: flex-start;
+  }
+  html.fx .stn[data-side="trail"] { left: calc(var(--ax) + 26px); right: var(--sc-gutter); }
+  html.fx .yr, html.fx .yr[data-side="lead"], html.fx .yr[data-side="trail"] {
+    left: calc(var(--ax) + 26px); right: var(--sc-gutter); width: auto;
+    top: calc(var(--hdr) + 22px); bottom: auto; height: calc(var(--ay) - var(--hdr) - 72px);
+    justify-content: flex-start; align-items: center;
+  }
+  .yr__time { font-size: clamp(5rem, 31vw, 10rem); }
+  .yr__mo { margin-left: 0.3rem; }
+  .stn__time { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+  .stn__time--range { font-size: clamp(2rem, 9vw, 3rem); }
+  .stn__place { font-size: clamp(1.5rem, 6.4vw, 2rem); }
+
+  html.fx .hero { top: var(--rt); bottom: auto; height: calc(var(--ay) - var(--rt) - 40px); justify-content: center; width: auto; }
+  .hero__h { font-size: clamp(2.4rem, 10.4vw, 3.6rem); }
+  .hero__sub { margin-top: 16px; font-size: 1.125rem; }
+  .hero__act { margin-top: 24px; }
+
+  html.fx .plate {
+    left: calc(var(--ax) + 26px); right: var(--sc-gutter); top: var(--rt); bottom: auto; width: auto;
+    height: calc(var(--ay) - var(--rt) - 50px);
+    justify-content: center; align-items: flex-start;
+  }
+  html.fx .plate[data-side="lead"], html.fx .plate[data-side="trail"] {
+    left: calc(var(--ax) + 26px); right: var(--sc-gutter); align-items: flex-start;
+  }
+  .plate__box { width: min(100%, calc(var(--ph) * var(--ar))); }
+
+  html.fx .peak { top: calc(var(--hdr) + 22px); bottom: auto; width: auto; left: calc(var(--ax) + 26px); right: var(--sc-gutter); padding-top: 0; }
+  .peak__h { max-width: 12ch; font-size: clamp(2rem, 9vw, 3.2rem); }
+  html.fx .doorsblock {
+    top: calc(var(--jy) + 30px); left: calc(var(--ax) + 16px); right: var(--sc-gutter); width: auto;
+    bottom: calc(var(--bar) + 16px);
+  }
+  .door { column-gap: 14px; padding: 6px 0; }
+  .door__name { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+  .door__what { font-size: 1.0625rem; line-height: 1.3; }
+  .door__host { display: none; }
+}
+
+/* A phone on its side (short and wide): type sits closer, the doors take a line each. Placed after the
+   general rules on purpose, so it wins. */
+@media (max-height: 560px) and (min-aspect-ratio: 21/20) {
+  .hero__h { font-size: clamp(2rem, 8.2vh, 3rem); }
+  .hero__sub { margin-top: 10px; font-size: 1.0625rem; }
+  .hero__act { margin-top: 14px; }
+  .hero__act .btn { min-height: 44px; }
+  .stn__time { font-size: clamp(2rem, 9vh, 3rem); }
+  .stn__place { font-size: clamp(1.4rem, 6.4vh, 2rem); }
+  .stn__p { margin-top: 10px; }
+  .yr__time { font-size: clamp(4rem, 36vh, 9rem); }
+  .peak__h { font-size: clamp(1.8rem, 9vh, 3rem); }
+  html.fx .peak, html.fx .doorsblock { top: calc(var(--hdr) + 12px); }
+  html.fx .doorsblock { bottom: calc(var(--bar) + 14px); }
+  html.fx .doorsblock { width: min(30rem, 47vw); }
+  .door { padding: 3px 0; row-gap: 0; }
+  .door__name { font-size: clamp(1.25rem, 6.4vh, 1.6rem); }
+  .door__what { font-size: 1rem; line-height: 1.25; }
+  .door__host { display: none; }
+}
+
+/* ------------------------------------------------------------------ dock --- */
+.dock {
+  position: fixed; inset: auto 0 0 0; z-index: var(--sc-z-chrome); height: var(--bar);
+  display: flex; align-items: stretch; gap: 10px; padding-inline: var(--sc-gutter);
+  background: var(--sc-canvas); border-top: 1px solid var(--sc-hairline);
+}
+.map { position: relative; flex: 1 1 auto; min-width: 0; }
+.map__list { display: flex; height: 100%; margin: 0; padding: 0; list-style: none; }
+.map__list li { flex: 1 1 0; min-width: 0; }
+.map__list li.map__end { flex: 1.7 1 0; }
+.map__list a {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 7px;
+  height: 100%; padding-top: 9px; color: var(--sc-ink-soft); text-decoration: none;
+}
+.map__dot {
+  width: 12px; height: 12px; border-radius: 50%; background: var(--sc-canvas);
+  border: 2px solid var(--ui); transition: background-color 140ms var(--sc-ease-out);
+}
+.map__yr { font: 600 0.75rem/1 var(--sc-font-text); letter-spacing: 0.02em; white-space: nowrap; }
+.map__list a:hover .map__yr, .map__list a[aria-current="step"] .map__yr { color: var(--sc-ink); }
+.map__list a.is-past .map__dot, .map__list a[aria-current="step"] .map__dot { background: var(--sc-accent); border-color: var(--sc-accent); }
+.map__list a[aria-current="step"] .map__dot { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+.map__list a:focus-visible { outline-offset: -2px; }
+.map__track {
+  position: absolute; left: 4.67%; right: 7.94%; top: 14px; height: 2px; z-index: 0;
+  background: var(--sc-hairline-strong);
+}
+.map__fill { display: block; height: 100%; background: var(--sc-accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+.credits { position: relative; flex: none; display: flex; align-items: center; }
+.credits__btn {
+  min-height: 44px; padding: 0 4px; background: none; border: 0; cursor: pointer;
+  color: var(--sc-ink-soft); font-size: 0.875rem; text-decoration: underline; text-underline-offset: 0.2em;
+}
+.credits__btn:hover, .credits__btn[aria-expanded="true"] { color: var(--sc-ink); }
+.credits__panel {
+  position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 70;
+  width: min(36rem, calc(100vw - 2 * var(--sc-gutter))); max-height: min(60svh, 30rem); overflow: auto;
+  padding: 16px 18px; background: var(--sc-surface); border: 1px solid var(--sc-hairline-strong); border-radius: var(--r);
+  font-size: 0.875rem; line-height: 1.5;
+}
+.credits__panel[hidden] { display: none; }
+.credits__h { margin: 0 0 8px; font: 600 0.9375rem/1.3 var(--sc-font-text); }
+.credits__list { margin: 0; padding: 0; list-style: none; }
+.credits__list li + li { margin-top: 10px; }
+.credits__list a { color: var(--sc-ink); }
+
+.map__yr .y2 { display: none; }
+@media (max-width: 480px) {
+  .map__yr { font-size: 0.75rem; letter-spacing: 0; }
+  .map__yr .y4 { display: none; }
+  .map__yr .y2 { display: inline; }
+  .map__end .map__yr { font-size: 0.6875rem; }
+  .dock { gap: 6px; }
+}
+
+/* ========================================================================
+   Static: reduced motion, or no JavaScript. The journey is a plain page: the
+   same stations, the same photographs and credits, a rail on the left.
+   ======================================================================== */
+html:not(.fx) .sc-grain, html:not(.fx) .world, html:not(.fx) [data-sc-spacer], html:not(.fx) .probe { display: none !important; }
+html:not(.fx) .map { display: none; }
+html:not(.fx) .credits__btn { display: none; }
+html:not(.fx) .journey {
+  display: flex; flex-direction: column; width: 100%; max-width: 46rem; margin: 0 auto;
+  padding: calc(var(--hdr) + 44px) var(--sc-gutter) 36px;
+}
+html:not(.js) .journey { padding-top: 44px; }
+html:not(.fx) .journey [data-sc-world], html:not(.fx) .journey [data-sc-world-copy] { display: contents; }
+html:not(.fx) .journey > *, html:not(.fx) .journey [data-sc-world] > *, html:not(.fx) .journey [data-sc-world-copy] > * { order: var(--o, 0); }
+html:not(.fx) .journey [data-sc-segment] {
+  position: relative; inset: auto; opacity: 1 !important; visibility: visible !important; z-index: auto !important;
+  padding: 0 0 36px 46px;
+}
+html:not(.fx) .journey [data-sc-segment]:empty { display: none; }
+html:not(.fx) .journey [data-sc-copy] {
+  position: relative; inset: auto; width: auto; opacity: 1 !important; transform: none !important; pointer-events: auto !important;
+  display: block; padding: 0 0 18px 46px;
+}
+html:not(.fx) .journey [data-sc-copy]::before, html:not(.fx) .journey [data-sc-segment]:not(:empty)::before {
+  content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
+  background: color-mix(in oklab, var(--sc-accent) 80%, transparent);
+}
+html:not(.fx) .yr[data-sc-copy]::after, html:not(.fx) .stn--photo[data-sc-copy]::after {
+  content: ""; position: absolute; left: 3px; top: 1.15rem; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--sc-accent); border: 3px solid var(--sc-canvas);
+}
+html:not(.fx) .hero { padding-bottom: 40px; }
+html:not(.fx) .hero__h { font-size: clamp(2.4rem, 8vw, 4rem); }
+html:not(.fx) .yr { padding-bottom: 0; }
+html:not(.fx) .yr__time { font-size: clamp(3.4rem, 12vw, 5.4rem); flex-direction: row; align-items: baseline; gap: 0.35em; }
+html:not(.fx) .yr__mo { margin: 0; font-size: 0.8125rem; }
+html:not(.fx) .stn__time { font-size: clamp(2.3rem, 7vw, 3.4rem); margin-top: 0.4em; }
+html:not(.fx) .stn__place { font-size: clamp(1.5rem, 4.6vw, 2rem); }
+html:not(.fx) .plate { margin: 0; }
+html:not(.fx) .plate__box { width: min(100%, 26rem); }
+html:not(.fx) .peak__h { max-width: none; font-size: clamp(2.2rem, 7vw, 3.4rem); margin-top: 0.3em; }
+html:not(.fx) .doors { margin: 12px 0 0; padding: 0; list-style: none; }
+html:not(.fx) .doors li + li { margin-top: 6px; }
+html:not(.fx) .door { padding: 12px 0; }
+html:not(.fx) .dock {
+  position: static; display: block; height: auto; max-width: 46rem; margin: 0 auto; padding: 8px var(--sc-gutter) 56px;
+  background: transparent; border: 0;
+}
+html:not(.fx) .credits { display: block; padding-left: 46px; }
+html:not(.fx) .credits__panel {
+  position: static; display: block !important; width: auto; max-height: none; overflow: visible;
+  padding: 0; background: transparent; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door__node, .map__dot { transition: none; }
+}

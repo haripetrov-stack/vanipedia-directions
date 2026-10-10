@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Vanipedia main page: a catalogue portal. Search first, then the plaque with the
+   founder's title, then one numbered index of collections (small image, short label,
+   the petal each one leads to), filterable by type. Stable; nothing moves by itself.
+   ========================================================================== */
+
+.portal .runhead { position: relative; }
+
+/* ------------------------------------------------------------------ search first */
+.find { padding: clamp(1.75rem, 5vw, 3.25rem) 0 clamp(1.5rem, 3.5vw, 2.5rem); }
+.find__grid { display: grid; gap: 1.5rem; }
+@media (min-width: 900px) {
+  .find__grid { grid-template-columns: minmax(0, 1fr) minmax(15rem, 21rem); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+}
+.find h1 { font-size: clamp(2.5rem, 7.5vw, 3.75rem); }
+.find__sub { margin-top: 0.4rem; font-size: 1.25rem; color: var(--ink-soft); }
+.search--hero { margin-top: 1.4rem; max-width: 42rem; }
+.search--hero input[type="search"] {
+  flex: 1; min-width: 0; width: 100%; height: 56px; padding: 0 1rem; font-size: 1.25rem;
+}
+.search--hero button { height: 56px; padding: 0 1.5rem; font-size: 1.125rem; }
+
+.start { display: grid; gap: 0; align-content: end; padding-left: 1rem; border-left: 2px solid var(--brass); }
+.start__k { font-size: 1rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--brass); }
+.start a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; width: fit-content; }
+@media (max-width: 899px) { .start { border-left: 0; padding-left: 0; } }
+
+/* ------------------------------------------------------------------ the plaque */
+.plaque { border-block: 1px solid var(--hair); background: var(--surface); }
+.plaque__in { display: grid; gap: 1.5rem; padding-block: clamp(1.5rem, 4vw, 2.5rem); }
+@media (min-width: 700px) {
+  .plaque__in { grid-template-columns: 11.5rem minmax(0, 1fr); column-gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+}
+.plaque figure { margin: 0; }
+.plaque img { width: 100%; max-width: 11.5rem; height: auto; border: 1px solid var(--hair); padding: 0.4rem; background: var(--canvas); box-shadow: var(--shadow-1); }
+.plaque figcaption { margin-top: 0.5rem; color: var(--ink-soft); }
+.plaque h2 { font-size: 1.125rem; font-family: var(--font-text); font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--brass); }
+.plaque__name { margin-top: 0.35rem; color: var(--ink-soft); }
+.plaque__title { margin-top: 0.5rem; font-family: var(--font-display); font-size: clamp(1.6rem, 3.4vw, 2.3rem); line-height: 1.18; font-weight: 500; letter-spacing: -0.012em; max-width: 30ch; text-wrap: balance; }
+.plaque__doc { display: flex; align-items: center; min-height: 44px; margin-top: 0.75rem; font-weight: 600; width: fit-content; }
+.plaque__note { color: var(--ink-soft); }
+
+/* ------------------------------------------------------------------ preface */
+.preface { padding-block: clamp(1.75rem, 4.5vw, 3rem); }
+@media (min-width: 900px) {
+  .preface .wrap { display: grid; grid-template-columns: minmax(13rem, 19rem) minmax(0, 1fr); column-gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+}
+.preface h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); margin-bottom: 0.9rem; }
+.preface p { max-width: 62ch; }
+
+/* ------------------------------------------------------------------ catalogue */
+.catalogue { border-top: 1px solid var(--hair); padding-block: clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 5vw, 4rem); }
+.catalogue__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 2rem; margin-bottom: 1.25rem; }
+.catalogue__bar h2 { font-size: clamp(1.75rem, 3.4vw, 2.4rem); }
+.filter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.filter__k { font-weight: 600; margin-right: 0.35rem; }
+.filter button {
+  min-height: 44px; padding: 0 1rem; background: transparent; color: var(--ink);
+  border: 1px solid var(--edge); border-radius: var(--r); font-weight: 600; font-size: var(--fs-ui); cursor: pointer;
+}
+.filter button:hover { border-color: var(--ink); }
+.filter button[aria-pressed="true"] { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+
+.index { border-top: 2px solid var(--ink); }
+.entry {
+  display: grid; align-items: start;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  column-gap: 1rem; row-gap: 0.15rem;
+  padding: 1.25rem 0; border-bottom: 1px solid var(--hair);
+}
+.entry__no { grid-column: 2; grid-row: 1; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--brass); font-variant-numeric: tabular-nums; }
+.entry__img {
+  grid-column: 1; grid-row: 1 / span 3;
+  width: 5.5rem; height: 5.5rem; object-fit: cover;
+  border: 1px solid var(--hair); background: var(--surface); padding: 3px; box-shadow: var(--shadow-1);
+}
+.entry__body { grid-column: 2; grid-row: 2; min-width: 0; }
+.entry__meta { grid-column: 2; grid-row: 3; display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 1.25rem; margin-top: 0.4rem; }
+.entry__t { font-size: clamp(1.4rem, 2.6vw, 1.75rem); margin-bottom: 0.3rem; }
+.entry__label { color: var(--ink-soft); max-width: 62ch; margin-bottom: 0.3rem; }
+.entry__label a { color: var(--ink); }
+.entry__links li { padding-block: 0.05rem; }
+.entry__links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; line-height: 1.3; }
+.entry__sub { display: block; max-width: 62ch; margin-top: -0.35rem; margin-bottom: 0.35rem; color: var(--ink-soft); }
+.entry__type { font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+.entry__leads { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.5rem; }
+.entry__k { font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+.entry__leads a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.entry audio { display: block; width: 100%; max-width: 30rem; height: 44px; margin: 0.35rem 0 0.25rem; }
+a[aria-disabled="true"] { text-decoration-style: dotted; cursor: default; }
+
+@media (min-width: 900px) {
+  .entry { grid-template-columns: 3.5rem 5.5rem minmax(0, 1fr) minmax(11rem, 14.5rem); column-gap: clamp(1rem, 2.5vw, 2rem); }
+  .entry__no { grid-column: 1; grid-row: 1; padding-top: 0.35rem; }
+  .entry__img { grid-column: 2; grid-row: 1; }
+  .entry__body { grid-column: 3; grid-row: 1; }
+  .entry__meta { grid-column: 4; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 0.35rem; margin-top: 0.3rem; }
+}

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vanipedia: Śrīla Prabhupāda's Vani Temple</title>
+<meta name="description" content="The entry page of Śrīla Prabhupāda's Vani Temple: Vanipedia, Vanisource, Vaniquotes and Vanimedia. Design prototype.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#24443a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vanipedia">
+<meta property="og:title" content="Vanipedia: Śrīla Prabhupāda's Vani Temple">
+<meta property="og:description" content="Vanipedia, Vanisource, Vaniquotes and Vanimedia: four petals of Śrīla Prabhupāda's Vani Temple.">
+<meta property="og:image" content="assets/img/og-vapu-vani.jpg">
+<meta property="og:image:alt" content="Śrīla Prabhupāda singing in Golden Gate Park, San Francisco, February 1967.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2324443a'/%3E%3Cg fill='%23e7c66a'%3E%3Cpath d='M16 4c3 4 3 8 0 12-3-4-3-8 0-12Z'/%3E%3Cpath d='M16 28c-3-4-3-8 0-12 3 4 3 8 0 12Z'/%3E%3Cpath d='M4 16c4-3 8-3 12 0-4 3-8 3-12 0Z'/%3E%3Cpath d='M28 16c-4 3-8 3-12 0 4-3 8-3 12 0Z'/%3E%3C/g%3E%3C/svg%3E">
+<script>
+/* Decide the mode before first paint: the moving stage only for people who have not asked for less motion, and only where it can fit */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(min-height: 600px) and (min-width: 340px)').matches) d.classList.add('vs-stage');
+})();
+</script>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/cormorant-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="vapu.css">
+<link rel="stylesheet" href="entry.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Vanipedia",
+      "url": "https://vanipedia.org/",
+      "inLanguage": "en",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://vanipedia.org/wiki/Special:VaniSearch?s={search_term_string}" },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "name": "Vanipedia",
+      "url": "https://vanipedia.org/"
+    },
+    {
+      "@type": "Person",
+      "name": "A. C. Bhaktivedanta Swami Prabhupāda",
+      "alternateName": "Śrīla Prabhupāda",
+      "jobTitle": "Founder-Ācārya of the International Society for Krishna Consciousness",
+      "birthPlace": "Calcutta",
+      "birthDate": "1896",
+      "sameAs": ["https://vanipedia.org/wiki/Srila_Prabhupada:_The_Founder-Acarya_of_ISKCON_-_A_GBC_Foundational_Document"]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="head">
+  <a class="mark" href="index.html" aria-label="Vanipedia, entry page">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="currentColor"><path d="M16 3c3.4 4.4 3.4 8.6 0 13-3.4-4.4-3.4-8.6 0-13Z"/><path d="M16 29c-3.4-4.4-3.4-8.6 0-13 3.4 4.4 3.4 8.6 0 13Z"/><path d="M3 16c4.4-3.4 8.6-3.4 13 0-4.4 3.4-8.6 3.4-13 0Z"/><path d="M29 16c-4.4 3.4-8.6 3.4-13 0 4.4-3.4 8.6-3.4 13 0Z"/></g></svg>
+    <span>Vanipedia</span>
+  </a>
+  <div class="head__tools">
+    <details class="lang" data-lang>
+      <summary>Menu</summary>
+      <div class="lang__panel">
+        <nav aria-label="Main">
+          <ul>
+            <li><a href="vanipedia.html#start">Start here</a></li>
+            <li><a href="vanipedia.html#topics">Browse topics</a></li>
+            <li><a href="vanipedia.html#prabhupada">Śrīla Prabhupāda</a></li>
+            <li><a href="vanipedia.html#listen">Read &amp; listen</a></li>
+            <li><a href="https://vanipedia.org/wiki/Vanipedia:About">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </details>
+    <details class="lang" data-lang>
+      <summary><span><span class="lang__l">Language: </span>English</span></summary>
+      <div class="lang__panel">
+        <ul>
+          <li><a href="index.html" lang="en" aria-current="true">English</a></li>
+          <li><a href="#" aria-disabled="true">Spanish</a></li>
+          <li><a href="#" aria-disabled="true">Hindi</a></li>
+          <li><a href="#" aria-disabled="true">Finnish</a></li>
+          <li><a href="#" aria-disabled="true">Hungarian</a></li>
+          <li><a href="#" aria-disabled="true">Indonesian</a></li>
+          <li><a href="#" aria-disabled="true">Kannada</a></li>
+          <li><a href="#" aria-disabled="true">Punjabi</a></li>
+          <li><a href="https://vanipedia.org/wiki/Main_Page">All 102 languages (Vanipedia)</a></li>
+        </ul>
+        <p>Prototype: only English is wired.</p>
+      </div>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+<section class="journey" id="journey" data-sc-act="pin" data-sc-span="11" aria-label="The Vani Temple">
+<div class="stage" data-sc-stage data-sc-verify-state="start">
+  <div class="bg-wall" aria-hidden="true"></div>
+  <div class="bg-sheet" aria-hidden="true"></div>
+
+  <!-- Wall 1 and 2: Golden Gate 1967 holds while the first two doors are read -->
+  <div class="group group--hero" style="--fw:56">
+    <figure class="plate" style="--w:54;--wv:53;--ph:58svh;--phv:26svh">
+      <div class="plate__in">
+        <p class="tag">Vapu <i>his form</i></p>
+        <img src="assets/img/golden-gate-900.webp"
+             srcset="assets/img/golden-gate-560.webp 560w, assets/img/golden-gate-900.webp 900w, assets/img/golden-gate-1350.webp 1350w"
+             sizes="(min-width: 960px) 46vw, 92vw" width="1350" height="912" fetchpriority="high"
+             alt="Śrīla Prabhupāda sitting on the grass in Golden Gate Park, San Francisco, singing into a microphone, with the Jagannātha Deity beside him and a crowd around them. Black and white photograph, February 1967.">
+        <figcaption>
+          <p class="cap">Golden Gate Park, San Francisco, February 1967.</p>
+          <p class="credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Bhaktivedanta_Swami_with_Jagannath_in_Golden_Gate_Park,_February_1967.jpg">Bhaktivedanta Swami with Jagannath in Golden Gate Park, February 1967</a>, Mukunda Goswami, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> via Wikimedia Commons</p>
+        </figcaption>
+      </div>
+    </figure>
+
+    <div class="block block--hero" data-len="1.2" data-d="1.5" style="--a:60;--av:58">
+      <p class="tag">Vāṇī <i>his words</i></p>
+      <h1>Śrīla Prabhupāda's Vani Temple</h1>
+      <p class="lede">Vanipedia: the essence of Vedic knowledge</p>
+      <a class="btn" href="vanipedia.html">Enter Vanipedia</a>
+      <form class="search" role="search" action="https://vanipedia.org/wiki/Special:VaniSearch" method="get">
+        <label class="sr" for="q-hero">Search Vanipedia</label>
+        <input id="q-hero" type="search" name="s" placeholder="Search Vanipedia" autocomplete="off" enterkeyhint="search">
+        <input type="hidden" name="tab" value="text">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <div class="block block--source" data-len="1.3" data-d="1.5" style="--a:56;--av:55">
+      <h2>Vanisource</h2>
+      <ul class="kinds">
+        <li>Books</li><li>Lectures</li><li>Conversations</li><li>Letters</li>
+      </ul>
+      <a class="go" href="https://vanisource.org">Open Vanisource</a>
+    </div>
+  </div>
+
+  <!-- Wall 3 and 4: Moscow 1971 holds through the quote and the balance point -->
+  <div class="group" style="--fw:50">
+    <figure class="plate plate--lift" style="--w:49;--wv:49;--ph:29svh;--phv:22svh">
+      <div class="plate__in">
+        <p class="tag">Vapu <i>his form</i></p>
+        <img src="assets/img/moscow-900.webp"
+             srcset="assets/img/moscow-560.webp 560w, assets/img/moscow-900.webp 900w, assets/img/moscow-1280.webp 1280w"
+             sizes="(min-width: 960px) 42vw, 92vw" width="1280" height="720" loading="lazy"
+             alt="Śrīla Prabhupāda in a light shawl on Red Square, Moscow, looking up, with Saint Basil's Cathedral and a statue behind him. Black and white photograph, 1971.">
+        <figcaption>
+          <p class="cap">Red Square, Moscow, 1971.</p>
+          <p class="credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_in_Moscow_1971.tif">Prabhupada in Moscow 1971</a>, Samuel Speerstra aka Syamasundara Das, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> via Wikimedia Commons</p>
+        </figcaption>
+      </div>
+    </figure>
+    <div class="pk pk--vapu" aria-hidden="true"><span>Vapu</span><span class="pk__s">his form</span></div>
+
+    <div class="block block--quotes" data-len="1.3" data-d="1.5" style="--a:53;--av:52.5">
+      <p class="tag">Vāṇī <i>his words</i></p>
+      <h2>Vaniquotes</h2>
+      <figure style="margin-top:1.4rem">
+        <blockquote class="quote"><p>“Samadhi is not an artificial bodily state…”</p></blockquote>
+        <figcaption class="quote-src"><a href="https://vanisource.org/wiki/SB_3.28.6?hl=Sam%C4%81dhi%20is%20not%20an%20artificial%20bodily%20state;%20it%20is%20the%20state%20achieved%20when%20the%20mind%20is%20virtually%20absorbed%20in%20thoughts%20of%20the%20Supreme%20Personality%20of%20Godhead">SB 3.28.6, Translation and Purport (Vanisource)</a></figcaption>
+      </figure>
+      <a class="go" href="https://vaniquotes.org">Open Vaniquotes</a>
+    </div>
+
+    <div class="block block--peak" data-len="2.2" data-d="2" data-peak style="--a:51;--av:51">
+      <h2 class="pk-flow" aria-label="Vapu and vāṇī"><span>Vapu<small>his form</small></span><span>Vāṇī<small>his words</small></span></h2>
+    </div>
+    <div class="pk pk--vani" aria-hidden="true"><span>Vāṇī</span><span class="pk__s">his words</span></div>
+  </div>
+
+  <!-- Wall 5 and 6: Germany 1974, on a walk -->
+  <div class="group" style="--fw:38">
+    <figure class="plate plate--portrait" style="--w:33;--wv:35;--ph:64svh;--phv:19svh">
+      <div class="plate__in">
+        <p class="tag">Vapu <i>his form</i></p>
+        <img src="assets/img/walk-560.webp"
+             srcset="assets/img/walk-360.webp 360w, assets/img/walk-560.webp 560w, assets/img/walk-840.webp 840w"
+             sizes="(min-width: 960px) 26vw, 40vw" width="840" height="1281" loading="lazy"
+             alt="Śrīla Prabhupāda smiling on a morning walk in Germany, in a hooded shawl and holding a cane, with disciples behind him. Colour photograph, 1974.">
+        <figcaption>
+          <p class="cap">Morning walk, Germany, 1974.</p>
+          <p class="credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_on_a_morning_walk_in_Germany_1974.jpg">Prabhupada on a morning walk in Germany 1974</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons</p>
+        </figcaption>
+      </div>
+    </figure>
+
+    <div class="block block--media" data-len="1.3" data-d="1.5" style="--a:43;--av:44">
+      <p class="tag">Vāṇī <i>his words</i></p>
+      <h2>Vanimedia</h2>
+      <p class="lede">Audio, video and images.</p>
+      <div class="nd" data-nd>
+        <button class="nd__btn" type="button" aria-label="Play the Nectar Drop" hidden>
+          <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.2v11.6L13.4 8z" fill="currentColor"/></svg>
+          <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2h3v12h-3zM9.5 2h3v12h-3z" fill="currentColor"/></svg>
+        </button>
+        <p class="nd__title">Nectar Drop: lecture, Hamburg, 5 September 1969</p>
+        <div class="nd__meta" hidden><span class="nd__time">0:00</span><span class="nd__bar"><i></i></span></div>
+        <audio controls preload="none" src="https://s3.amazonaws.com/vanipedia/Nectar+Drops/690905LE-HAMBURG_ND_01.mp3"></audio>
+      </div>
+      <ul class="links">
+        <li><a href="https://vanipedia.org/wiki/Category:Nectar_Drops_from_Srila_Prabhupada">Nectar Drops (Vanipedia)</a></li>
+        <li><a href="https://vanimedia.org/wiki/Images">Image galleries</a></li>
+      </ul>
+      <a class="go" href="https://vanimedia.org">Open Vanimedia</a>
+    </div>
+
+    <div class="block block--vani" data-len="1.3" data-d="1.5" style="--a:35;--av:36">
+      <h2>Vanipedia</h2>
+      <p class="lede">The encyclopedia of Śrīla Prabhupāda's words.</p>
+      <ul class="links">
+        <li><a href="https://vanipedia.org/wiki/Absorbed_in_Thought_of_God">Absorbed in Thought of God</a></li>
+        <li><a href="https://vanipedia.org/wiki/Predicament_of_Modern_Man">Predicament of Modern Man</a></li>
+      </ul>
+      <a class="btn" href="vanipedia.html">Enter Vanipedia</a>
+    </div>
+  </div>
+
+  <!-- Wall 7: Germany 1974, singing. The photograph rests as the narrow column. -->
+  <div class="group" style="--fw:26">
+    <figure class="plate plate--portrait" style="--w:24;--wv:29;--ph:66svh;--phv:15svh">
+      <div class="plate__in">
+        <p class="tag">Vapu <i>his form</i></p>
+        <img src="assets/img/singing-560.webp"
+             srcset="assets/img/singing-360.webp 360w, assets/img/singing-560.webp 560w, assets/img/singing-840.webp 840w"
+             sizes="(min-width: 960px) 20vw, 30vw" width="840" height="1280" loading="lazy"
+             alt="Śrīla Prabhupāda singing and playing hand cymbals, wearing flower garlands, with disciples singing behind him. Colour photograph, Germany, 1974.">
+        <figcaption>
+          <p class="cap">Singing, Germany, 1974.</p>
+          <p class="credit">Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_singing_(Germany_1974).jpg">Prabhupada singing (Germany 1974)</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons</p>
+        </figcaption>
+      </div>
+    </figure>
+
+    <div class="block block--close" data-len="1.4" data-d="1" data-last style="--a:25;--av:30">
+      <p class="tag">Vāṇī <i>his words</i></p>
+      <div class="close__top">
+        <h2>The four petals</h2>
+        <form class="search" role="search" action="https://vanipedia.org/wiki/Special:VaniSearch" method="get">
+          <label class="sr" for="q-close">Search Vanipedia</label>
+          <input id="q-close" type="search" name="s" placeholder="Search Vanipedia" autocomplete="off" enterkeyhint="search">
+          <input type="hidden" name="tab" value="text">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <ul class="doors">
+        <li>
+          <h3>Vanipedia</h3>
+          <p>The encyclopedia of Śrīla Prabhupāda's words.</p>
+          <a class="btn" href="vanipedia.html">Enter Vanipedia</a>
+        </li>
+        <li>
+          <h3>Vanisource</h3>
+          <p>His books, lectures, conversations and letters.</p>
+          <a class="go" href="https://vanisource.org">Open Vanisource</a>
+        </li>
+        <li>
+          <h3>Vaniquotes</h3>
+          <p>His words gathered by theme.</p>
+          <a class="go" href="https://vaniquotes.org">Open Vaniquotes</a>
+        </li>
+        <li>
+          <h3>Vanimedia</h3>
+          <p>Audio, video and images.</p>
+          <a class="go" href="https://vanimedia.org">Open Vanimedia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="seam" aria-hidden="true">
+    <span class="seam__line"></span>
+    <span class="seam__a">Vapu <i>his form</i></span>
+    <span class="seam__b">Vāṇī <i>his words</i></span>
+  </div>
+</div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot__grid">
+    <section aria-labelledby="credits-h">
+      <h2 id="credits-h">Photographs</h2>
+      <ul class="credit">
+        <li>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Bhaktivedanta_Swami_with_Jagannath_in_Golden_Gate_Park,_February_1967.jpg">Bhaktivedanta Swami with Jagannath in Golden Gate Park, February 1967</a>, Mukunda Goswami, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> via Wikimedia Commons</li>
+        <li>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_in_Moscow_1971.tif">Prabhupada in Moscow 1971</a>, Samuel Speerstra aka Syamasundara Das, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a> via Wikimedia Commons</li>
+        <li>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_on_a_morning_walk_in_Germany_1974.jpg">Prabhupada on a morning walk in Germany 1974</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons</li>
+        <li>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Prabhupada_singing_(Germany_1974).jpg">Prabhupada singing (Germany 1974)</a>, Christian Jansen, <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> via Wikimedia Commons</li>
+      </ul>
+    </section>
+  </div>
+  <p class="foot__small">Design prototype, direction 7 of 8, for the team meeting of 10 October 2026.</p>
+</footer>
+
+<script src="scrollcraft.js"></script>
+<script src="vapu.js"></script>
+<script src="entry.js"></script>
+</body>
+</html>

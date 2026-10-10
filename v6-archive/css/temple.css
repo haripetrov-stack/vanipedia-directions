@@ -1,0 +1,304 @@
+/* ==========================================================================
+   Entry page: the Vani Temple as a catalogue hall.
+   Modes (set before first paint by a head script):
+     data-mode="wide"    horizontal spine (pan) + pinned peak, scroll driven
+     data-mode="narrow"  vertical stack of plates, pinned peak
+     data-mode="static"  reduced motion: everything stacked, nothing moves
+   Without script the page is the static layout.
+   ========================================================================== */
+
+/* engine tokens follow the page tokens; the engine itself is untouched */
+:root {
+  --sc-canvas: var(--canvas);
+  --sc-surface: var(--surface);
+  --sc-ink: var(--ink);
+  --sc-ink-soft: var(--ink-soft);
+  --sc-accent: var(--brass);
+  --sc-accent-ink: var(--canvas);
+  --sc-font-display: var(--font-display);
+  --sc-font-text: var(--font-text);
+}
+body { font-family: var(--font-text); font-size: 1.0625rem; line-height: 1.55; letter-spacing: 0; }
+@media (min-width: 768px) { body { font-size: 1.125rem; } }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: var(--r); }
+.sc-stage { outline: 0; }
+
+/* ------------------------------------------------------------------ the hall */
+.hall { padding-top: var(--head-h); }
+.hall__lead { padding: clamp(2rem, 6vw, 3.25rem) var(--gutter) 0.5rem; max-width: 40rem; }
+.hall__lead h1 { font-size: clamp(2.125rem, 8.4vw, 3rem); margin-bottom: 1rem; }
+.hall__lead .welcome { max-width: 34ch; margin-bottom: 1.5rem; }
+
+.arcade, .plate-index { display: none; }
+
+/* plate: object + label (the label schema is identical for every plate) */
+.plate { padding: clamp(2rem, 6vw, 3rem) var(--gutter) 0.5rem; }
+.plate__objects { display: grid; gap: 1rem; justify-items: start; }
+.mat {
+  background: var(--surface); border: 1px solid var(--hair);
+  padding: 0.6rem; box-shadow: var(--shadow-1);
+  width: 100%;
+}
+.mat--portrait { max-width: 26rem; }
+.mat--land { max-width: 46rem; }
+.mat .clip { line-height: 0; }
+.plate__img { display: block; width: 100%; max-width: 100%; height: auto; }
+
+.label {
+  display: grid; gap: 0.4rem; align-content: start;
+  max-width: 28rem; margin-top: 1rem;
+  padding: 0.7rem 1rem 0.9rem;
+  background: var(--surface); border: 1px solid var(--hair);
+}
+.label__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 1.5rem; }
+.label__no { font-size: 1rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--brass); }
+.label__title { font-size: 1.5rem; line-height: 1.15; }
+.label__text { font-size: 1.0625rem; line-height: 1.45; }
+@media (min-width: 768px) { .label__text { font-size: 1.125rem; } }
+.label__credit { font-size: 1.0625rem; line-height: 1.4; color: var(--ink-soft); }
+@media (min-width: 768px) { .label__credit { font-size: 1.125rem; } }
+.label__credit a { color: var(--ink); }
+.label__leads { display: grid; gap: 0.05rem; margin-top: 0.15rem; padding-top: 0.55rem; border-top: 1px solid var(--hair); }
+.label__k { font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+.label__leads a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; width: fit-content; }
+
+.loupe-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  min-height: 44px; margin-block: -0.4rem; padding: 0 0.8rem;
+  background: var(--canvas); color: var(--ink);
+  border: 1px solid var(--edge); border-radius: var(--r);
+  font-weight: 600; font-size: var(--fs-ui); cursor: pointer;
+}
+.loupe-btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.loupe-btn:hover { border-color: var(--ink); }
+.loupe-btn[aria-pressed="true"] { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+.loupe-hint { font-size: 1rem; color: var(--ink-soft); }
+
+/* ----------------------------------------------------------------- the loupe */
+.loupe-host { position: relative; line-height: 0; display: block; touch-action: pan-y pinch-zoom; }
+.loupe {
+  position: absolute; left: 0; top: 0; z-index: 8;
+  width: var(--lens, 9rem); height: var(--lens, 9rem);
+  border-radius: 50%; overflow: hidden;
+  background: #1a1917;
+  border: 2px solid var(--brass-night);
+  box-shadow: 0 12px 28px -8px rgb(20 16 10 / .55), 0 0 0 1px rgb(23 23 26 / .6), inset 0 0 0 1px rgb(255 255 255 / .28);
+  transform: translate3d(var(--lx, 0px), var(--ly, 0px), 0);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 140ms var(--ease-out), visibility 0s linear 140ms;
+}
+.loupe__img {
+  position: absolute; left: 0; top: 0; transform-origin: 0 0;
+  background-repeat: no-repeat; background-size: 100% 100%;
+  max-width: none;
+}
+.loupe-host.is-lens .loupe { opacity: 1; visibility: visible; transition-delay: 0s; }
+.loupe-host.is-touch.is-lens .loupe { pointer-events: auto; touch-action: none; }
+@media (hover: hover) and (pointer: fine) { .loupe-host.is-lens { cursor: crosshair; } }
+
+/* ------------------------------------------------------- stacked (default) */
+@media (min-width: 900px) {
+  :root:not([data-mode="wide"]) .plate {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 26rem); gap: 2rem 3rem;
+    align-items: end; max-width: 80rem; margin-inline: auto; padding-inline: var(--gutter);
+  }
+  :root:not([data-mode="wide"]) .plate .label { margin-top: 0; }
+}
+.plate--pair .plate__objects { grid-template-columns: minmax(0, 1fr); }
+.plate__detail { max-width: 26rem; width: 100%; }
+
+/* ------------------------------------------------- wide: horizontal spine */
+[data-mode="wide"] .hall { padding-top: 0; }
+[data-mode="wide"] .hall__stage {
+  --label-w: clamp(19rem, 30vw, 28rem);
+  --strip-h: 3.5rem;
+  --obj-h: clamp(13rem, calc(100svh - var(--head-h) - var(--strip-h) - 24.5rem), 34rem);
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100svh;
+  padding-top: var(--head-h);
+  background: var(--canvas);
+}
+[data-mode="wide"] .hall__track { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; position: relative; }
+[data-mode="wide"] .hall__rail {
+  position: relative; z-index: 2;
+  display: flex; align-items: flex-start;
+  gap: clamp(3.5rem, 7vw, 7rem);
+  width: max-content;
+  padding: 0 clamp(6rem, 14vw, 14rem) 0 var(--gutter);
+}
+[data-mode="wide"] .arcade {
+  display: block; position: absolute; left: 0; bottom: 0; z-index: 0;
+  height: 94%; width: auto; max-width: none;
+  transform: translate3d(calc(var(--sc-p, 0) * var(--arc-shift, 0px)), 0, 0);
+  will-change: transform;
+}
+.arcade path { fill: none; stroke: var(--brass); stroke-opacity: 0.38; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+[data-mode="wide"] .hall__lead {
+  flex: none; width: var(--label-w); padding: 0; align-self: flex-start; max-width: none;
+}
+[data-mode="wide"] .hall__lead h1 { font-size: clamp(2rem, 2.9vw, 2.7rem); }
+[data-mode="wide"] .plate { flex: none; display: flex; flex-direction: column; gap: 0.9rem; padding: 0; max-width: none; }
+[data-mode="wide"] .plate .label { width: var(--label-w); max-width: none; margin-top: 0; }
+[data-mode="wide"] .mat { width: fit-content; max-width: none; }
+[data-mode="wide"] .plate__img { height: var(--obj-h); width: auto; max-width: none; max-height: none; }
+[data-mode="wide"] .plate__objects { display: flex; align-items: flex-end; gap: 1.25rem; }
+[data-mode="wide"] .plate__detail { max-width: none; width: calc(var(--obj-h) * 0.95); }
+[data-mode="wide"] .plate__detail .plate__img { width: 100%; height: auto; }
+[data-mode="wide"] .plate--end { width: clamp(3rem, 6vw, 6rem); }
+
+[data-mode="wide"] .plate-index {
+  display: block; flex: none; height: var(--strip-h);
+  background: var(--canvas); border-top: 1px solid var(--hair);
+  position: relative; z-index: 3;
+}
+.plate-index ul {
+  height: 100%; display: flex; align-items: center; gap: clamp(0.75rem, 2.2vw, 2.25rem);
+  max-width: 108rem; margin-inline: auto; padding-inline: var(--gutter); overflow: hidden;
+}
+.plate-index a {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; white-space: nowrap;
+  font-size: var(--fs-ui); font-weight: 600; text-decoration: none; color: var(--ink-soft);
+  border-bottom: 2px solid transparent; padding-top: 2px;
+}
+.plate-index a:hover { color: var(--ink); border-bottom-color: var(--brass); }
+.plate-index a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.plate-index .no { color: var(--brass); font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------ the peak
+   Static layout first (dark section, everything in its resolved state).
+   .is-pin (set by script) turns it into a pinned stage driven by --sc-p.      */
+.peak {
+  --t-ink: #f1efea; --t-soft: #cbc7bd;
+  --focus: #f4f3f0;
+  background: var(--night); color: var(--t-ink);
+  position: relative;
+}
+.peak__stage { display: grid; gap: 2rem; padding: 4rem var(--gutter) 4.5rem; max-width: 80rem; margin-inline: auto; }
+@media (min-width: 900px) {
+  .peak__stage { grid-template-columns: minmax(17rem, 27rem) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+}
+.peak__dim { display: none; }
+.peak__text { display: grid; gap: 1.5rem; align-content: center; }
+.peak__wall h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 0.75rem; }
+.peak__wall p { max-width: 30ch; color: var(--t-soft); }
+.peak__wall .label__no { display: block; margin-bottom: 0.5rem; color: var(--brass-night); }
+.peak__bar { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.peak .loupe-btn { margin-block: 0; background: transparent; color: var(--t-ink); border-color: #77726a; }
+.peak .loupe-btn:hover { border-color: var(--t-ink); }
+.peak .loupe-btn[aria-pressed="true"] { background: var(--t-ink); color: var(--night); border-color: var(--t-ink); }
+.peak .loupe-hint { color: var(--t-soft); }
+.notes { display: grid; gap: 0.6rem; }
+.note {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.85rem; align-items: center; width: 100%;
+  min-height: 56px; padding: 0.5rem 0.85rem 0.5rem 0.7rem; text-align: left;
+  background: transparent; color: var(--t-ink);
+  border: 1px solid #5a564f; border-radius: var(--r); cursor: pointer;
+}
+.note:hover { border-color: var(--brass-night); }
+.note[aria-pressed="true"] { border-color: var(--brass-night); background: rgb(209 172 92 / .12); }
+.note__chip {
+  width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
+  border: 1.5px solid var(--brass-night); color: var(--brass-night); font-weight: 600; font-size: 1rem;
+}
+.note__t { display: grid; font-size: 1rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--t-soft); line-height: 1.25; }
+.note__v { font-size: 1.125rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--t-ink); line-height: 1.3; }
+
+.peak__doc { position: relative; justify-self: center; width: min(100%, 34rem); aspect-ratio: 1920 / 2394; }
+.peak__zoom { position: absolute; inset: 0; transform-origin: 50% 50%; }
+.peak__zoom .loupe-host { width: 100%; height: 100%; box-shadow: 0 30px 60px -28px rgb(0 0 0 / .8), 0 0 0 1px rgb(255 255 255 / .08); }
+.peak__zoom img { width: 100%; height: 100%; }
+.pin {
+  position: absolute; left: 0; width: 1.75rem; height: 1.75rem; margin: -0.875rem 0 0 -0.875rem; z-index: 4;
+  border-radius: 50%; display: grid; place-items: center; pointer-events: none;
+  background: var(--brass-night); color: var(--night); font-weight: 600; font-size: 1rem; line-height: 1;
+  box-shadow: 0 0 0 2px var(--night);
+}
+
+/* pinned peak */
+.peak.is-pin { background: var(--canvas); color: var(--ink); --t-ink: #f1efea; --t-soft: #cbc7bd; }
+.peak.is-pin .peak__stage {
+  --p: var(--sc-p, 0);
+  --dim: clamp(0, calc((var(--p) - 0.07) / 0.20), 1);
+  --g0: clamp(0, calc((var(--p) - 0.12) / 0.30), 1);
+  --g: calc(var(--g0) * var(--g0) * (3 - 2 * var(--g0)));
+  --wall: clamp(0, calc(1 - (var(--p) - 0.03) / 0.10), 1);
+  --n1: clamp(0, calc((var(--p) - 0.42) / 0.07), 1);
+  --n2: clamp(0, calc((var(--p) - 0.56) / 0.07), 1);
+  --n3: clamp(0, calc((var(--p) - 0.70) / 0.07), 1);
+  --doc-h: min(calc(100svh - var(--head-h) - 2.25rem), 62rem);
+  max-width: none; margin: 0; gap: 0;
+  height: 100vh; height: 100svh;
+  padding: calc(var(--head-h) + 0.75rem) var(--gutter) 1.25rem;
+  background: var(--canvas);
+  align-items: center;
+}
+.peak.is-pin .peak__dim { display: block; position: absolute; inset: 0; z-index: 0; background: var(--night); opacity: var(--dim); pointer-events: none; }
+.peak.is-pin .peak__text, .peak.is-pin .peak__doc { position: relative; z-index: 1; }
+.peak.is-pin .peak__text { display: grid; grid-template-areas: "x"; align-content: center; }
+.peak.is-pin .peak__wall, .peak.is-pin .peak__panel { grid-area: x; }
+.peak.is-pin .peak__wall { opacity: var(--wall); }
+.peak.is-pin .peak__wall h2, .peak.is-pin .peak__wall p { color: var(--ink); }
+.peak.is-pin .peak__wall .label__no { color: var(--brass); }
+.peak.is-pin .peak__panel { opacity: clamp(0, calc(var(--n1) * 1.4), 1); }
+.peak.is-pin:not(.is-notes) .peak__panel { pointer-events: none; }
+.peak.is-pin.is-notes .peak__wall { pointer-events: none; }
+.peak.is-pin .notes li:nth-child(1) { opacity: var(--n1); }
+.peak.is-pin .notes li:nth-child(2) { opacity: var(--n2); }
+.peak.is-pin .notes li:nth-child(3) { opacity: var(--n3); }
+.peak.is-pin .pin:nth-of-type(1) { opacity: var(--n1); }
+.peak.is-pin .pin:nth-of-type(2) { opacity: var(--n2); }
+.peak.is-pin .pin:nth-of-type(3) { opacity: var(--n3); }
+.peak.is-pin .peak__doc { width: auto; height: var(--doc-h); }
+.peak.is-pin .peak__zoom { transform: scale(calc(0.56 + 0.44 * var(--g))); }
+
+@media (min-width: 900px) {
+  .peak.is-pin .peak__stage {
+    --col-l: clamp(15rem, 33vw, 27rem);
+    --gap: clamp(2rem, 6vw, 6rem);
+    --doc-h: min(calc(100svh - var(--head-h) - 2.25rem), 62rem, calc((100vw - var(--gutter) * 2 - var(--col-l) - var(--gap)) / 0.802));
+    grid-template-columns: var(--col-l) minmax(0, 1fr); column-gap: var(--gap);
+  }
+}
+@media (max-width: 899px) {
+  .peak.is-pin .peak__stage {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr);
+    --doc-h: min(46svh, 28rem); row-gap: 0.9rem; align-items: start;
+    padding-top: calc(var(--head-h) + 0.5rem);
+  }
+  .peak.is-pin .peak__doc { grid-row: 1; }
+  .peak.is-pin .peak__text { grid-row: 2; align-content: start; }
+  .peak__wall p { max-width: none; }
+  .note { min-height: 52px; padding-block: 0.35rem; }
+  .note__v { font-size: 1.0625rem; }
+}
+
+/* --------------------------------------------------------------- the sheet */
+.sheet { background: var(--canvas); padding: clamp(3.5rem, 8vw, 7rem) 0 clamp(2.5rem, 5vw, 4rem); }
+.sheet h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); }
+.petals { margin-top: 2rem; border-top: 2px solid var(--ink); }
+.petal { display: grid; gap: 0.4rem 2.5rem; padding: 1.35rem 0; border-bottom: 1px solid var(--hair); }
+.petal h3 { font-size: clamp(1.6rem, 3vw, 2rem); }
+.petal h3 a { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; text-decoration: none; }
+.petal h3 a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.petal h3 svg { width: 0.8em; height: 0.8em; flex: none; color: var(--brass); }
+.petal__holds { max-width: 34ch; }
+.petal__plates { display: flex; flex-wrap: wrap; gap: 0 1.25rem; align-items: center; }
+.petal__plates a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.petal__plates .no { color: var(--brass); font-variant-numeric: tabular-nums; margin-right: 0.35rem; }
+@media (min-width: 900px) {
+  .petal { grid-template-columns: 13rem minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; }
+}
+
+.close { background: var(--canvas); padding: 0 0 clamp(3rem, 7vw, 6rem); }
+.close .label { max-width: 34rem; margin-top: 0; border-color: var(--ink); gap: 0.6rem; padding: 1rem 1.15rem 1.25rem; }
+.close .label__title { font-size: 1.9rem; }
+.close .btn { margin-top: 0.5rem; width: fit-content; }
+
+/* the first plate sits close under the title in the stacked layouts */
+@media (min-width: 900px) {
+  :root:not([data-mode="wide"]) .hall__lead { padding-top: 2rem; }
+  :root:not([data-mode="wide"]) #plate-1 { padding-top: 1.25rem; }
+}
+
+/* a block that waits to be revealed cannot be clicked; focus reveals it (see temple.js) */
+[data-sc-in]:not(.sc-in), [data-sc-stagger] > :not(.sc-in) { pointer-events: none; }
