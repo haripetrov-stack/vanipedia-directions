@@ -1,0 +1,140 @@
+/* One page system for Vanisource and Acaryapedia mock-ups: the same skeleton, two palettes.
+   System fonts only (no web fonts to load), so every page stays light and fast. */
+:root {
+  --page: #fbf6e6;
+  --paper: #ffffff;
+  --ink: #1f1b16;
+  --soft: #5a5146;
+  --line: #8a7d62;
+  --field: #6b604c;
+  --bar: #2b2620;
+  --bar-ink: #fbf6e6;
+  --accent: #2e6b3a;
+  --accent-ink: #ffffff;
+  --link: #124f88;
+  --mark: #f3e6bf;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+.ap {
+  --page: #f7f4f0;
+  --paper: #ffffff;
+  --ink: #1d1a1a;
+  --soft: #574f4f;
+  --line: #8b7f7c;
+  --field: #6a5f5c;
+  --bar: #3a1d24;
+  --bar-ink: #f7f4f0;
+  --accent: #7a2430;
+  --accent-ink: #ffffff;
+  --link: #7a2430;
+  --mark: #f1e3e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #1c1915; --paper: #26221c; --ink: #f3ecdc; --soft: #c9bfa9; --line: #8f846c; --field: #a59a82;
+    --bar: #0f0d0b; --bar-ink: #f3ecdc; --accent: #6fbf7e; --accent-ink: #10220f; --link: #8cc4ff; --mark: #3a3324;
+  }
+  :root:not([data-theme="light"]) .ap {
+    --page: #1b1718; --paper: #262022; --ink: #f2eae8; --soft: #cbbdb9; --line: #8e817e; --field: #a5958f;
+    --bar: #0e0b0c; --bar-ink: #f2eae8; --accent: #e3949c; --accent-ink: #2a0c11; --link: #f0a8b0; --mark: #3b2a2c;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 18px/1.6 var(--font); }
+a { color: var(--link); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+img { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 16px; top: 8px; background: var(--paper); padding: 8px 12px; z-index: 9; }
+
+/* top bar */
+.topbar { background: var(--bar); color: var(--bar-ink); }
+.topbar .in { max-width: 1160px; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
+.brand { color: var(--bar-ink); font-weight: 700; font-size: 1.15rem; text-decoration: none; letter-spacing: .01em; }
+.brand small { display: block; font-weight: 400; font-size: .78rem; opacity: .85; letter-spacing: 0; }
+.menu { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; list-style: none; font-size: .95rem; }
+.menu a { color: var(--bar-ink); text-decoration: none; padding: 6px 0; display: inline-block; }
+.menu a:hover, .menu a[aria-current] { text-decoration: underline; }
+.search { display: flex; gap: 6px; margin-left: auto; flex: 1 1 260px; max-width: 420px; }
+.search input { flex: 1; min-width: 0; font: inherit; font-size: 1rem; padding: 8px 10px; border: 2px solid var(--field); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.search button, .btn { font: inherit; font-size: 1rem; padding: 8px 14px; border: 0; border-radius: 6px; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.partners { background: var(--mark); font-size: .9rem; }
+.partners .in { max-width: 1160px; margin: 0 auto; padding: 6px 16px; color: var(--soft); }
+
+/* page grid: text on the left, the presence column on the right */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 20px 16px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 40px; align-items: start; }
+main { min-width: 0; }
+.crumbs { font-size: .9rem; color: var(--soft); margin: 0 0 6px; }
+.crumbs a { color: var(--soft); }
+h1 { font-size: 2rem; line-height: 1.2; margin: .2em 0 .3em; }
+h2 { font-size: 1.15rem; letter-spacing: .06em; text-transform: uppercase; margin: 1.8em 0 .5em; color: var(--soft); }
+h3 { font-size: 1.15rem; margin: 1.4em 0 .4em; }
+.lede { font-size: 1.1rem; color: var(--soft); max-width: 62ch; margin-top: 0; }
+p, li { max-width: 68ch; }
+.pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 8px 0; margin: 12px 0 8px; font-size: .95rem; }
+.verse { font-size: 1.2rem; line-height: 1.7; margin: .4em 0 0; padding: 14px 18px; background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; font-style: italic; }
+.verse span { display: block; }
+.syn { font-size: 1rem; }
+.syn i { font-style: italic; }
+.translation { font-weight: 600; font-size: 1.1rem; }
+.more { margin-top: 1em; }
+.label { display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .03em; color: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; margin-left: 6px; vertical-align: middle; background: var(--paper); }
+.mock { color: var(--soft); font-style: italic; }
+
+/* lists of books, texts, works */
+.list { list-style: none; padding: 0; margin: 0; max-width: none; }
+.list li { max-width: none; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.list li:first-child { border-top: 1px solid var(--line); }
+.list a { font-weight: 600; }
+.list .sub { display: block; color: var(--soft); font-size: .95rem; font-style: italic; }
+.cols { columns: 2 260px; column-gap: 32px; }
+.cols li { break-inside: avoid; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; max-width: none; }
+.chips a { display: inline-block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); text-decoration: none; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+.card h3 { margin-top: 0; }
+.card p { margin: .3em 0 0; font-size: .95rem; color: var(--soft); }
+
+/* commentaries */
+details { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; margin: 10px 0; }
+summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style-position: outside; }
+summary small { display: block; font-weight: 400; color: var(--soft); font-size: .9rem; }
+details > div { padding: 0 16px 14px; }
+.sources { font-size: .9rem; color: var(--soft); border-top: 1px solid var(--line); margin-top: 2.4em; padding-top: 10px; }
+
+/* the presence column */
+aside { position: sticky; top: 16px; }
+.presence { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.presence figcaption, .presence .who { padding: 10px 14px 12px; font-size: .95rem; line-height: 1.35; }
+.presence .who strong { display: block; font-size: 1.05rem; }
+.presence .who span { color: var(--soft); }
+.side-nav { margin-top: 16px; font-size: .95rem; }
+.side-nav h2 { margin: 0 0 .4em; font-size: .85rem; }
+.side-nav ul { list-style: none; padding: 0; margin: 0; }
+.side-nav li { padding: 4px 0; }
+.mini { display: none; }
+
+/* home hero */
+.hero { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+.hero h1 { margin-top: 0; }
+.hero .search { margin: 12px 0 0; max-width: none; }
+.hero-text { min-width: 0; }
+
+footer { border-top: 1px solid var(--line); }
+footer .in { max-width: 1160px; margin: 0 auto; padding: 16px; font-size: .85rem; color: var(--soft); }
+
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  aside { position: static; }
+  aside .presence { display: none; }
+  .mini { display: flex; gap: 12px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin: 6px 0 12px; font-size: .9rem; line-height: 1.3; }
+  .mini img { width: 56px; height: 70px; object-fit: cover; border-radius: 4px; flex: none; }
+  .mini span { color: var(--soft); }
+  h1 { font-size: 1.6rem; }
+  .verse { font-size: 1.05rem; padding: 12px 14px; }
+  .hero { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; padding: 12px; }
+  .search { margin-left: 0; flex-basis: 100%; max-width: none; }
+}
