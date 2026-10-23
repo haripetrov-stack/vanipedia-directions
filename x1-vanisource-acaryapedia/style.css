@@ -82,6 +82,8 @@ p, li { max-width: 68ch; }
 .more { margin-top: 1em; }
 .label { display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .03em; color: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; margin-left: 6px; vertical-align: middle; background: var(--paper); }
 .mock { color: var(--soft); font-style: italic; }
+a.soon { color: var(--soft); }
+.purport .verse { font-size: 1.05rem; padding: 10px 14px; }
 
 /* lists of books, texts, works */
 .list { list-style: none; padding: 0; margin: 0; max-width: none; }
